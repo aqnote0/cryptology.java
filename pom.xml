@@ -16,7 +16,7 @@
 
 	<properties>
 		<slf4j_version>1.6.6</slf4j_version>
-		<apache_commons_codec>1.6</apache_commons_codec>
+		<apache_commons_codec>1.10</apache_commons_codec>
 		<apache_commons_lang>2.6</apache_commons_lang>
 		<bouncycastle_version>1.50</bouncycastle_version>
 		<fastjson_version>1.1.28</fastjson_version>
