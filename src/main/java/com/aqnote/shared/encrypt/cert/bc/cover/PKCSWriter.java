@@ -1,16 +1,10 @@
 /*
- * Copyright 2013-2023 Peng Li <madding.lip@gmail.com>
- * Licensed under the AQNote License, Version 1.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.aqnote.com/licenses/LICENSE-1.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2013-2023 Peng Li <madding.lip@gmail.com> Licensed under the AQNote License, Version 1.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ * http://www.aqnote.com/licenses/LICENSE-1.0 Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language governing permissions and limitations under the
+ * License.
  */
 package com.aqnote.shared.encrypt.cert.bc.cover;
 
@@ -29,8 +23,12 @@ import java.security.cert.X509Certificate;
 import org.apache.commons.codec.binary.Base64;
 import org.bouncycastle.asn1.ASN1Encoding;
 import org.bouncycastle.asn1.DERBMPString;
+import org.bouncycastle.asn1.DERNull;
+import org.bouncycastle.asn1.oiw.OIWObjectIdentifiers;
+import org.bouncycastle.asn1.x509.AlgorithmIdentifier;
 import org.bouncycastle.asn1.x509.SubjectKeyIdentifier;
 import org.bouncycastle.cert.jcajce.JcaX509ExtensionUtils;
+import org.bouncycastle.crypto.digests.SHA1Digest;
 import org.bouncycastle.openssl.PEMWriter;
 import org.bouncycastle.openssl.jcajce.JcePEMEncryptorBuilder;
 import org.bouncycastle.operator.OutputEncryptor;
@@ -65,7 +63,7 @@ public class PKCSWriter implements BCConstant {
             certSafeBags[i] = safeBagBuilder.build();
         }
 
-        X509Certificate cert = (X509Certificate) chain[0];
+        X509Certificate cert = chain[0];
         String subjectCN = CertificateUtil.getSubjectCN(cert);
         SubjectKeyIdentifier pubKeyId = new JcaX509ExtensionUtils().createSubjectKeyIdentifier(cert.getPublicKey());
 
@@ -85,9 +83,11 @@ public class PKCSWriter implements BCConstant {
         OutputEncryptor oCertEncryptor = new JcePKCSPBEOutputEncryptorBuilder(pbeWithSHAAnd40BitRC2_CBC).setProvider(JCE_PROVIDER).build(pwd);
         pfxPduBuilder.addEncryptedData(oCertEncryptor, certSafeBags);
 
-        // PKCS12PfxPdu pfxPdu = pfxPduBuilder.build(new
-        // JcePKCS12MacCalculatorBuilder(idSHA1), pwd);
-        PKCS12PfxPdu pfxPdu = pfxPduBuilder.build(new BcPKCS12MacCalculatorBuilder(), pwd);
+        // PKCS12PfxPdu pfxPdu = pfxPduBuilder.build(new JcePKCS12MacCalculatorBuilder(idSHA1), pwd);
+        BcPKCS12MacCalculatorBuilder builder = new BcPKCS12MacCalculatorBuilder(new SHA1Digest(),
+                                                                                new AlgorithmIdentifier(OIWObjectIdentifiers.idSHA1,
+                                                                                                        DERNull.INSTANCE));
+        PKCS12PfxPdu pfxPdu = pfxPduBuilder.build(builder, pwd);
 
         ostream.write(pfxPdu.getEncoded(ASN1Encoding.DER));
         ostream.close();
@@ -112,7 +112,11 @@ public class PKCSWriter implements BCConstant {
         ostream.close();
     }
 
-    public static void storeDERFile(X509Certificate cert, OutputStream ostream) throws Exception {
+    public static void storeCertFile(X509Certificate cert, OutputStream ostream) throws Exception {
+        storePem(cert, ostream, null);
+    }
+
+    public static void storeCertFile(X509Certificate[] cert, OutputStream ostream) throws Exception {
         storePem(cert, ostream, null);
     }
 
@@ -141,6 +145,24 @@ public class PKCSWriter implements BCConstant {
         } else {
             JcePEMEncryptorBuilder encryptorBuilder = new JcePEMEncryptorBuilder(DES_EDE3_CBC).setProvider(JCE_PROVIDER).setSecureRandom(new SecureRandom());
             pemWriter.writeObject(obj, encryptorBuilder.build(pwd));
+        }
+        pemWriter.flush();
+        pemWriter.close();
+    }
+
+    private static void storePem(Object[] obj, OutputStream ostream, char[] pwd) throws Exception {
+        if (obj == null || ostream == null) return;
+
+        PEMWriter pemWriter = new PEMWriter(new PrintWriter(ostream));
+        for (int i = 0; i < obj.length; i++) {
+            if (obj[i] == null) continue;
+            if (pwd == null) {
+                pemWriter.writeObject(obj[i]);
+            } else {
+                JcePEMEncryptorBuilder encryptorBuilder = new JcePEMEncryptorBuilder(DES_EDE3_CBC).setProvider(JCE_PROVIDER).setSecureRandom(new SecureRandom());
+                pemWriter.writeObject(obj, encryptorBuilder.build(pwd));
+            }
+
         }
         pemWriter.flush();
         pemWriter.close();

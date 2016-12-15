@@ -14,40 +14,14 @@
  */
 package com.aqnote.shared.encrypt.cert;
 
-//import java.io.File;
-//import java.io.FileInputStream;
-//import java.io.FileOutputStream;
-//import java.io.IOException;
-//import java.io.InputStream;
-//import java.security.InvalidKeyException;
-//import java.security.Key;
-//import java.security.KeyStore;
-//import java.security.KeyStoreException;
-//import java.security.NoSuchAlgorithmException;
-//import java.security.NoSuchProviderException;
-//import java.security.PrivateKey;
-//import java.security.PublicKey;
-//import java.security.SecureRandom;
-//import java.security.SignatureException;
-//import java.security.UnrecoverableKeyException;
-//import java.security.cert.Certificate;
-//import java.security.cert.CertificateException;
-//import java.security.cert.CertificateFactory;
-//import java.security.cert.X509Certificate;
-//import java.util.Date;
-//
-//import sun.security.x509.AlgorithmId;
-//import sun.security.x509.CertAndKeyGen;
-//import sun.security.x509.CertificateAlgorithmId;
-//import sun.security.x509.CertificateIssuerName;
-//import sun.security.x509.CertificateSerialNumber;
-//import sun.security.x509.CertificateSubjectName;
-//import sun.security.x509.CertificateValidity;
-//import sun.security.x509.CertificateVersion;
-//import sun.security.x509.CertificateX509Key;
-//import sun.security.x509.X500Name;
-//import sun.security.x509.X509CertImpl;
-//import sun.security.x509.X509CertInfo;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.security.Key;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
 
 public class X509CertTest {
 
@@ -202,37 +176,32 @@ public class X509CertTest {
 //
 //    }
 //
-//    /**
-//     * 证书私钥存储设施
-//     * 
-//     * @param alias KeyStore别名
-//     * @param key 密钥（这里是私钥）
-//     * @param password 保存密码
-//     * @param chain 证书链
-//     * @param filePath PFX文件路径
-//     * @throws KeyStoreException
-//     * @throws NoSuchAlgorithmException
-//     * @throws CertificateException
-//     * @throws IOException
-//     */
-//    private void createKeyStore(String alias, Key key, char[] password, Certificate[] chain, String filePath)
-//                                                                                                             throws KeyStoreException,
-//                                                                                                             NoSuchAlgorithmException,
-//                                                                                                             CertificateException,
-//                                                                                                             IOException {
-//
-//        KeyStore keyStore = KeyStore.getInstance("pkcs12");
-//
-//        keyStore.load(null, password);
-//
-//        keyStore.setKeyEntry(alias, key, password, chain);
-//
-//        FileOutputStream fos = new FileOutputStream(filePath);
-//
-//        keyStore.store(fos, password);
-//
-//        fos.close();
-//    }
+    /**
+     * 证书私钥存储设施
+     * 
+     * @param alias KeyStore别名
+     * @param key 密钥（这里是私钥）
+     * @param password 保存密码
+     * @param chain 证书链
+     * @param filePath PFX文件路径
+     * @throws KeyStoreException
+     * @throws NoSuchAlgorithmException
+     * @throws CertificateException
+     * @throws IOException
+     */
+    protected void createKeyStore(String alias, Key key, char[] password, Certificate[] chain, String filePath) {
+
+		try {
+			KeyStore keyStore = KeyStore.getInstance("PKCS12");
+			keyStore.setKeyEntry(alias, key, password, chain);
+	        FileOutputStream fos = new FileOutputStream(filePath);
+	        keyStore.store(fos, password);
+	        fos.close();
+		} catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | IOException e) {
+			e.printStackTrace();
+		}
+        
+    }
 //
 //    /**
 //     * 读取PFX文件中的私钥

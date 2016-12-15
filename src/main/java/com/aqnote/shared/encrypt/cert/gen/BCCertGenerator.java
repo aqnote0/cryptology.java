@@ -1,16 +1,10 @@
 /*
- * Copyright 2013-2023 Peng Li <madding.lip@gmail.com>
- * Licensed under the AQNote License, Version 1.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.aqnote.com/licenses/LICENSE-1.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2013-2023 Peng Li <madding.lip@gmail.com> Licensed under the AQNote License, Version 1.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ * http://www.aqnote.com/licenses/LICENSE-1.0 Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language governing permissions and limitations under the
+ * License.
  */
 package com.aqnote.shared.encrypt.cert.gen;
 
@@ -69,7 +63,6 @@ import com.aqnote.shared.encrypt.ProviderUtil;
 import com.aqnote.shared.encrypt.cert.bc.constant.BCConstant;
 import com.aqnote.shared.encrypt.cert.bc.constant.CertConstant;
 import com.aqnote.shared.encrypt.cert.bc.constant.DateConstant;
-import com.aqnote.shared.encrypt.cert.bc.util.CertificateUtil;
 import com.aqnote.shared.encrypt.cert.bc.util.X500NameUtil;
 
 /**
@@ -85,10 +78,10 @@ public class BCCertGenerator implements BCConstant {
     protected static final KeyPurposeId[]       MOST_EKU        = new KeyPurposeId[5];
 
     protected static int                        WHOLE_KEY_USAGE = KeyUsage.digitalSignature | KeyUsage.nonRepudiation
-                                                                  | KeyUsage.keyEncipherment
-                                                                  | KeyUsage.dataEncipherment | KeyUsage.keyAgreement
-                                                                  | KeyUsage.keyCertSign | KeyUsage.cRLSign
-                                                                  | KeyUsage.encipherOnly | KeyUsage.decipherOnly;
+                                                                  | KeyUsage.keyEncipherment | KeyUsage.dataEncipherment
+                                                                  | KeyUsage.keyAgreement | KeyUsage.keyCertSign
+                                                                  | KeyUsage.cRLSign | KeyUsage.encipherOnly
+                                                                  | KeyUsage.decipherOnly;
 
     protected static int                        END_KEY_USAGE   = KeyUsage.digitalSignature | KeyUsage.keyEncipherment;
 
@@ -118,119 +111,50 @@ public class BCCertGenerator implements BCConstant {
         return threadlocal.get();
     }
 
-    public X509Certificate createRootCaCert(final KeyPair keyPair) throws Exception {
+    public X509Certificate createRootCaCert(KeyPair keyPair) throws Exception {
 
-        PublicKey pubKey = keyPair.getPublic();
-        PrivateKey privKey = keyPair.getPrivate();
-
-        X500Name idn = X500NameUtil.createRootPrincipal();
-        BigInteger sno = BigInteger.valueOf(1);
-        Date nb = new Date(System.currentTimeMillis() - ONE_DAY);
-        Date na = new Date(nb.getTime() + TWENTY_YEAR);
-
-        X509v3CertificateBuilder certBuilder = new JcaX509v3CertificateBuilder(idn, sno, nb, na, idn, pubKey);
-
-        addSubjectKID(certBuilder, pubKey);
-        addAuthorityKID(certBuilder, pubKey);
-        addCRLDistributionPoints(certBuilder);
-        addAuthorityInfoAccess(certBuilder);
-        certBuilder.addExtension(Extension.basicConstraints, true, new BasicConstraints(Boolean.TRUE));
-
-        X509Certificate certificate = signCert(certBuilder, privKey);
-        certificate.checkValidity(new Date());
-        certificate.verify(pubKey);
-
-        setPKCS9Info(certificate);
-
-        return certificate;
+        X500Name idn = X500NameUtil.createRootCaPrincipal();
+        return createRootCaCert(idn, keyPair);
     }
 
-    public X509Certificate createClass3RootCert(KeyPair keyPair, PrivateKey ppk, X509Certificate caCert)
-                                                                                                        throws Exception {
+    public X509Certificate createClass1CaCert(PublicKey pubKey, KeyPair pKeyPair) throws Exception {
 
-        X500Name idn = CertificateUtil.getSubject(caCert);
-        BigInteger sno = BigInteger.valueOf(5);
-        Date nb = new Date(System.currentTimeMillis() - HALF_DAY);
-        Date na = new Date(nb.getTime() + TWENTY_YEAR);
-        X500Name sdn = X500NameUtil.createClass3RootPrincipal();
-        PublicKey pubKey = keyPair.getPublic();
-
-        X509v3CertificateBuilder certBuilder = new JcaX509v3CertificateBuilder(idn, sno, nb, na, sdn, pubKey);
-
-        addSubjectKID(certBuilder, pubKey);
-        addAuthorityKID(certBuilder, caCert.getPublicKey());
-        certBuilder.addExtension(Extension.basicConstraints, true, new BasicConstraints(Boolean.TRUE));
-
-        X509Certificate certificate = signCert(certBuilder, ppk);
-        certificate.checkValidity(new Date());
-        certificate.verify(caCert.getPublicKey());
-
-        setPKCS9Info(certificate);
-
-        return certificate;
+        X500Name issuer = X500NameUtil.createRootCaPrincipal();
+        X500Name subject = X500NameUtil.createClass1CaPrincipal();
+        return createMiddleCaCert(subject, pubKey, pKeyPair, issuer);
     }
 
-    public X509Certificate createClass1CaCert(KeyPair keyPair, PrivateKey ppk, X509Certificate caCert) throws Exception {
+    public X509Certificate createClass3CaCert(PublicKey pubKey, KeyPair pKeyPair) throws Exception {
 
-        X500Name idn = CertificateUtil.getSubject(caCert);
-        BigInteger sno = BigInteger.valueOf(3);
-        Date nb = new Date(System.currentTimeMillis() - HALF_DAY);
-        Date na = new Date(nb.getTime() + TWENTY_YEAR);
-        X500Name sdn = X500NameUtil.createClass1RootPrincipal();
-        PublicKey pubKey = keyPair.getPublic();
-
-        X509v3CertificateBuilder certBuilder = new JcaX509v3CertificateBuilder(idn, sno, nb, na, sdn, pubKey);
-
-        addSubjectKID(certBuilder, pubKey);
-        addAuthorityKID(certBuilder, caCert.getPublicKey());
-        certBuilder.addExtension(Extension.basicConstraints, true, new BasicConstraints(3));
-        certBuilder.addExtension(Extension.extendedKeyUsage, false, new ExtendedKeyUsage(BASE_EKU));
-
-        X509Certificate certificate = signCert(certBuilder, ppk);
-        certificate.checkValidity(new Date());
-        certificate.verify(caCert.getPublicKey());
-
-        setPKCS9Info(certificate);
-
-        return certificate;
+        X500Name issuer = X500NameUtil.createRootCaPrincipal();
+        X500Name subject = X500NameUtil.createClass3CaPrincipal();
+        return createMiddleCaCert(subject, pubKey, pKeyPair, issuer);
     }
 
-    public X509Certificate createClass1EndCert(X500Name sdn, PublicKey pubKey, KeyPair pKeyPair) throws Exception {
+    public X509Certificate createClass1EndCert(X500Name subject, PublicKey pubKey, KeyPair pKeyPair) throws Exception {
 
-        PublicKey pPubKey = pKeyPair.getPublic();
-        PrivateKey pPrivKey = pKeyPair.getPrivate();
-
-        X500Name issuer = X500NameUtil.createClass1RootPrincipal();
-        BigInteger sno = BigInteger.valueOf(System.currentTimeMillis());
-        Date nb = new Date(System.currentTimeMillis() - HALF_DAY);
-        Date na = new Date(nb.getTime() + FIVE_YEAR);
-
-        X509v3CertificateBuilder certBuilder = new JcaX509v3CertificateBuilder(issuer, sno, nb, na, sdn, pubKey);
-
-        addSubjectKID(certBuilder, pubKey);
-        addAuthorityKID(certBuilder, pPubKey);
-        certBuilder.addExtension(Extension.extendedKeyUsage, false, new ExtendedKeyUsage(BASE_EKU));
-        certBuilder.addExtension(Extension.keyUsage, false, new KeyUsage(END_KEY_USAGE));
-
-        X509Certificate certificate = signCert(certBuilder, pPrivKey);
-        certificate.checkValidity(new Date());
-        certificate.verify(pPubKey);
-
-        setPKCS9Info(certificate);
-
-        return certificate;
+        X500Name issuer = X500NameUtil.createClass1CaPrincipal();
+        return createEndCert(subject, pubKey, pKeyPair, issuer);
     }
 
-    public X509Certificate createClass3EndCert(long sno, X500Name sdn, Map<String, String> exts, KeyPair keyPair,
+    public X509Certificate createClass3EndCert(X500Name sdn, PublicKey pubKey, KeyPair pKeyPair) throws Exception {
+        return createClass3EndCert(0, sdn, null, pubKey, pKeyPair);
+    }
+
+    public X509Certificate createClass3EndCert(X500Name sdn, Map<String, String> exts, PublicKey pubKey,
+                                               KeyPair pKeyPair) throws Exception {
+        return createClass3EndCert(0, sdn, exts, pubKey, pKeyPair);
+    }
+
+    public X509Certificate createClass3EndCert(long sno, X500Name sdn, Map<String, String> exts, PublicKey pubKey,
                                                KeyPair pKeyPair) throws Exception {
         PublicKey pPubKey = pKeyPair.getPublic();
         PrivateKey pPrivKey = pKeyPair.getPrivate();
 
-        X500Name idn = X500NameUtil.createClass3RootPrincipal();
+        X500Name idn = X500NameUtil.createClass3CaPrincipal();
         BigInteger _sno = BigInteger.valueOf(sno <= 0 ? System.currentTimeMillis() : sno);
         Date nb = new Date(System.currentTimeMillis() - HALF_DAY);
         Date na = new Date(nb.getTime() + FIVE_YEAR);
-        PublicKey pubKey = keyPair.getPublic();
 
         X509v3CertificateBuilder certBuilder = new JcaX509v3CertificateBuilder(idn, _sno, nb, na, sdn, pubKey);
 
@@ -244,7 +168,8 @@ public class BCCertGenerator implements BCConstant {
                 String oid = it.next();
                 String value = exts.get(oid);
                 if (!StringUtils.isBlank(value)) {
-                    certBuilder.addExtension(new ASN1ObjectIdentifier(oid), false, new DEROctetString(value.getBytes()));
+                    certBuilder.addExtension(new ASN1ObjectIdentifier(oid), false,
+                                             new DEROctetString(value.getBytes()));
                 }
             }
         }
@@ -269,8 +194,8 @@ public class BCCertGenerator implements BCConstant {
         return csr;
     }
 
-    public X509Certificate signCert(PKCS10CertificationRequest pkcs10CSR, X500Name issuer, KeyPair pKeyPair)
-                                                                                                            throws Exception {
+    public X509Certificate signCert(PKCS10CertificationRequest pkcs10CSR, X500Name issuer,
+                                    KeyPair pKeyPair) throws Exception {
         SubjectPublicKeyInfo pkInfo = pkcs10CSR.getSubjectPublicKeyInfo();
         RSAKeyParameters rsa = (RSAKeyParameters) PublicKeyFactory.createKey(pkInfo);
         RSAPublicKeySpec rsaSpec = new RSAPublicKeySpec(rsa.getModulus(), rsa.getExponent());
@@ -278,8 +203,7 @@ public class BCCertGenerator implements BCConstant {
         PublicKey publicKey = kf.generatePublic(rsaSpec);
 
         SubjectPublicKeyInfo keyInfo = new SubjectPublicKeyInfo(ASN1Sequence.getInstance(publicKey.getEncoded()));
-        X509v3CertificateBuilder certBuilder = new X509v3CertificateBuilder(
-                                                                            issuer,
+        X509v3CertificateBuilder certBuilder = new X509v3CertificateBuilder(issuer,
                                                                             BigInteger.valueOf(System.currentTimeMillis()),
                                                                             new Date(System.currentTimeMillis()
                                                                                      - DateConstant.ONE_DAY),
@@ -294,7 +218,7 @@ public class BCCertGenerator implements BCConstant {
         return signedCert;
     }
 
-    private static void setPKCS9Info(X509Certificate certificate) throws Exception {
+    private void setPKCS9Info(X509Certificate certificate) throws Exception {
         // X500Name subject = CertificateUtil.getSubject(certificate);
         // PKCS12BagAttributeCarrier attrCarrier = (PKCS12BagAttributeCarrier) certificate;
         // String friendlyName = CertificateUtil.getValue(subject.getRDNs(BCStyle.CN)[0]);
@@ -304,17 +228,18 @@ public class BCCertGenerator implements BCConstant {
         // attrCarrier.setBagAttribute(PKCSObjectIdentifiers.pkcs_9_at_localKeyId, pubKeyId);
     }
 
-    private static void addSubjectKID(X509v3CertificateBuilder certBuilder, PublicKey pubKey) throws Exception {
+    private void addSubjectKID(X509v3CertificateBuilder certBuilder, PublicKey pubKey) throws Exception {
         JcaX509ExtensionUtils extUtils = new JcaX509ExtensionUtils();
         certBuilder.addExtension(Extension.subjectKeyIdentifier, false, extUtils.createSubjectKeyIdentifier(pubKey));
     }
 
-    private static void addAuthorityKID(X509v3CertificateBuilder certBuilder, PublicKey pubKey) throws Exception {
+    private void addAuthorityKID(X509v3CertificateBuilder certBuilder, PublicKey pubKey) throws Exception {
         JcaX509ExtensionUtils extUtils = new JcaX509ExtensionUtils();
-        certBuilder.addExtension(Extension.authorityKeyIdentifier, false, extUtils.createAuthorityKeyIdentifier(pubKey));
+        certBuilder.addExtension(Extension.authorityKeyIdentifier, false,
+                                 extUtils.createAuthorityKeyIdentifier(pubKey));
     }
 
-    private static void addCRLDistributionPoints(X509v3CertificateBuilder certBuilder) throws CertIOException {
+    private void addCRLDistributionPoints(X509v3CertificateBuilder certBuilder) throws CertIOException {
         DistributionPoint[] distPoints = new DistributionPoint[1];
         GeneralName generalName = new GeneralName(GeneralName.uniformResourceIdentifier, MAD_CRL_URL);
         GeneralNames generalNames = new GeneralNames(generalName);
@@ -323,7 +248,7 @@ public class BCCertGenerator implements BCConstant {
         certBuilder.addExtension(Extension.cRLDistributionPoints, false, new CRLDistPoint(distPoints));
     }
 
-    private static void addAuthorityInfoAccess(X509v3CertificateBuilder certBuilder) throws CertIOException {
+    private void addAuthorityInfoAccess(X509v3CertificateBuilder certBuilder) throws CertIOException {
         ASN1EncodableVector aia_ASN = new ASN1EncodableVector();
         GeneralName crlName = new GeneralName(GeneralName.uniformResourceIdentifier,
                                               new DERIA5String(CertConstant.MAD_CA_URL));
@@ -336,8 +261,83 @@ public class BCCertGenerator implements BCConstant {
         certBuilder.addExtension(Extension.authorityInfoAccess, false, new DERSequence(aia_ASN));
     }
 
-    private static X509Certificate signCert(X509v3CertificateBuilder certBuilder, PrivateKey pPrivKey) throws Exception {
+    private X509Certificate signCert(X509v3CertificateBuilder certBuilder, PrivateKey pPrivKey) throws Exception {
         ContentSigner signer = new JcaContentSignerBuilder(ALG_SIG_SHA256_RSA).setProvider(JCE_PROVIDER).build(pPrivKey);
         return new JcaX509CertificateConverter().setProvider(JCE_PROVIDER).getCertificate(certBuilder.build(signer));
+    }
+
+    private X509Certificate createRootCaCert(X500Name idn, KeyPair keyPair) throws Exception {
+
+        PublicKey pubKey = keyPair.getPublic();
+        PrivateKey privKey = keyPair.getPrivate();
+
+        BigInteger sno = BigInteger.valueOf(1);
+        Date nb = new Date(System.currentTimeMillis() - ONE_DAY);
+        Date na = new Date(nb.getTime() + TWENTY_YEAR);
+
+        X509v3CertificateBuilder certBuilder = new JcaX509v3CertificateBuilder(idn, sno, nb, na, idn, pubKey);
+
+        addSubjectKID(certBuilder, pubKey);
+        addAuthorityKID(certBuilder, pubKey);
+        addCRLDistributionPoints(certBuilder);
+        addAuthorityInfoAccess(certBuilder);
+        certBuilder.addExtension(Extension.basicConstraints, true, new BasicConstraints(Boolean.TRUE));
+
+        X509Certificate certificate = signCert(certBuilder, privKey);
+        certificate.checkValidity(new Date());
+        certificate.verify(pubKey);
+
+        setPKCS9Info(certificate);
+
+        return certificate;
+    }
+
+    private X509Certificate createMiddleCaCert(X500Name subject, PublicKey pubKey, KeyPair pKeyPair,
+                                               X500Name issuer) throws Exception {
+
+        BigInteger sno = BigInteger.valueOf(3);
+        Date nb = new Date(System.currentTimeMillis() - HALF_DAY);
+        Date na = new Date(nb.getTime() + TWENTY_YEAR);
+
+        X509v3CertificateBuilder certBuilder = new JcaX509v3CertificateBuilder(issuer, sno, nb, na, subject, pubKey);
+
+        addSubjectKID(certBuilder, pubKey);
+        addAuthorityKID(certBuilder, pKeyPair.getPublic());
+        certBuilder.addExtension(Extension.basicConstraints, true, new BasicConstraints(3));
+        certBuilder.addExtension(Extension.extendedKeyUsage, false, new ExtendedKeyUsage(BASE_EKU));
+
+        X509Certificate certificate = signCert(certBuilder, pKeyPair.getPrivate());
+        certificate.checkValidity(new Date());
+        certificate.verify(pKeyPair.getPublic());
+
+        setPKCS9Info(certificate);
+
+        return certificate;
+    }
+
+    private X509Certificate createEndCert(X500Name subject, PublicKey pubKey, KeyPair pKeyPair,
+                                          X500Name issuer) throws Exception {
+
+        PublicKey pPubKey = pKeyPair.getPublic();
+        PrivateKey pPrivKey = pKeyPair.getPrivate();
+
+        BigInteger sno = BigInteger.valueOf(System.currentTimeMillis());
+        Date nb = new Date(System.currentTimeMillis() - HALF_DAY);
+        Date na = new Date(nb.getTime() + FIVE_YEAR);
+
+        X509v3CertificateBuilder certBuilder = new JcaX509v3CertificateBuilder(issuer, sno, nb, na, subject, pubKey);
+
+        addSubjectKID(certBuilder, pubKey);
+        addAuthorityKID(certBuilder, pPubKey);
+        certBuilder.addExtension(Extension.extendedKeyUsage, false, new ExtendedKeyUsage(BASE_EKU));
+        certBuilder.addExtension(Extension.keyUsage, false, new KeyUsage(END_KEY_USAGE));
+
+        X509Certificate certificate = signCert(certBuilder, pPrivKey);
+        certificate.checkValidity(new Date());
+        certificate.verify(pPubKey);
+
+        setPKCS9Info(certificate);
+
+        return certificate;
     }
 }

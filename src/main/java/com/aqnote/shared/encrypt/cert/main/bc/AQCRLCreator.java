@@ -54,7 +54,7 @@ public class AQCRLCreator implements BCConstant {
     public static void createNewCRL() throws CertException {
 
         try {
-            X509v2CRLBuilder crlBuilder = new X509v2CRLBuilder(X500NameUtil.createRootPrincipal(), new Date());
+            X509v2CRLBuilder crlBuilder = new X509v2CRLBuilder(X500NameUtil.createRootCaPrincipal(), new Date());
             crlBuilder.setNextUpdate(new Date(System.currentTimeMillis() + DateConstant.ONE_YEAR));
             X509CRLHolder crlHolder = crlBuilder.build(new JcaContentSignerBuilder(SHA256_RSA).setProvider(JCE_PROVIDER).build(CaCertLoader.getCaKeyPair().getPrivate()));
             X509CRL crl = new JcaX509CRLConverter().setProvider(JCE_PROVIDER).getCRL(crlHolder);

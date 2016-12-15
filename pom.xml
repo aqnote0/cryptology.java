@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.aqnote</groupId>
 		<artifactId>parent.all</artifactId>
-		<version>1.0.0</version>
+		<version>1.0.1</version>
 	</parent>
 	<groupId>com.aqnote.shared</groupId>
 	<artifactId>java.encrypt</artifactId>

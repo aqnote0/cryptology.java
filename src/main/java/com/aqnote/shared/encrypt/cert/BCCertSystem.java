@@ -1,16 +1,10 @@
 /*
- * Copyright 2013-2023 Peng Li <madding.lip@gmail.com>
- * Licensed under the AQNote License, Version 1.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.aqnote.com/licenses/LICENSE-1.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2013-2023 Peng Li <madding.lip@gmail.com> Licensed under the AQNote License, Version 1.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ * http://www.aqnote.com/licenses/LICENSE-1.0 Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language governing permissions and limitations under the
+ * License.
  */
 package com.aqnote.shared.encrypt.cert;
 
@@ -48,13 +42,13 @@ public class BCCertSystem {
     public static MadCertDo issueClientCert(long serialNo, String alias, String cn, String email, String title,
                                             Map<String, String> exts, char[] pwd) throws Exception {
 
-        X500Name subject = X500NameUtil.createClass3EndPrincipal(cn, email, title);
-
         KeyPair caKeyPair = CaCertLoader.getClass3CaKeyPair();
 
-        KeyPair endKeyPair = KeyPairUtil.generateRSAKeyPair();
+        X500Name subject = X500NameUtil.createClass3EndPrincipal(cn, email, title);
 
-        X509Certificate endCert = getIns().createClass3EndCert(serialNo, subject, exts, endKeyPair, caKeyPair);
+        KeyPair keyPair = KeyPairUtil.generateRSAKeyPair();
+
+        X509Certificate endCert = getIns().createClass3EndCert(serialNo, subject, exts, keyPair.getPublic(), caKeyPair);
 
         MadCertDo madCertDo = new MadCertDo();
         madCertDo.setSerialNumber(serialNo);
@@ -62,7 +56,7 @@ public class BCCertSystem {
         madCertDo.setNotAfter(endCert.getNotAfter());
         madCertDo.setIssuerDN(endCert.getIssuerDN().toString());
         madCertDo.setSubjectDN(endCert.getSubjectDN().toString());
-        madCertDo.setKeyFile(PKCSTransformer.getKeyFileString(endKeyPair.getPrivate(), pwd));
+        madCertDo.setKeyFile(PKCSTransformer.getKeyFileString(keyPair.getPrivate(), pwd));
         madCertDo.setKeyPwd(String.valueOf(pwd));
 
         return madCertDo;

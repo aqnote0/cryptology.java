@@ -51,7 +51,7 @@ public class AQOpCreator implements BCConstant {
         System.out.println("==================cert====================");
         System.out.println(cert);
         FileOutputStream ostream = new FileOutputStream(new File(MAD_ROOT_CA + "_1" + CRT_SUFFIX));
-        PKCSWriter.storeDERFile(cert, ostream);
+        PKCSWriter.storeCertFile(cert, ostream);
 
         istream = new FileInputStream(MAD_ROOT_CA + KEY_SUFFIX);
         PrivateKey privKey = PKCSReader.readPrivateKey(istream, USER_CERT_PASSWD);
@@ -89,7 +89,7 @@ public class AQOpCreator implements BCConstant {
         clientCaChain[0] = clientCaCert;
 
         FileOutputStream oStream = new FileOutputStream(new File(MAD_ROOT_CA + CRT_SUFFIX));
-        PKCSWriter.storeDERFile(clientCaCert, oStream);
+        PKCSWriter.storeCertFile(clientCaCert, oStream);
         oStream.close();
 
         oStream = new FileOutputStream(new File(MAD_ROOT_CA + KEY_SUFFIX));

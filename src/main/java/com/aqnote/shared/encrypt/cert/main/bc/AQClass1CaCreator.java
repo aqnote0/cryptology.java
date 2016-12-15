@@ -1,35 +1,26 @@
 /*
- * Copyright 2013-2023 Peng Li <madding.lip@gmail.com>
- * Licensed under the AQNote License, Version 1.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.aqnote.com/licenses/LICENSE-1.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2013-2023 Peng Li <madding.lip@gmail.com> Licensed under the AQNote License, Version 1.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ * http://www.aqnote.com/licenses/LICENSE-1.0 Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language governing permissions and limitations under the
+ * License.
  */
 package com.aqnote.shared.encrypt.cert.main.bc;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.security.KeyPair;
-import java.security.KeyStore;
-import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.cert.X509Certificate;
-import java.util.Enumeration;
 
-import org.bouncycastle.pkcs.PKCS12PfxPdu;
-
-import com.aqnote.shared.encrypt.cert.bc.constant.BCConstant;
 import com.aqnote.shared.encrypt.cert.bc.cover.PKCSReader;
 import com.aqnote.shared.encrypt.cert.bc.cover.PKCSWriter;
 import com.aqnote.shared.encrypt.cert.bc.loader.CaCertLoader;
 import com.aqnote.shared.encrypt.cert.bc.util.KeyPairUtil;
+import com.aqnote.shared.encrypt.cert.bc.util.X500NameUtil;
 import com.aqnote.shared.encrypt.cert.gen.BCCertGenerator;
 
 /**
@@ -37,79 +28,81 @@ import com.aqnote.shared.encrypt.cert.gen.BCCertGenerator;
  * 
  * @author madding.lip Dec 6, 2013 9:23:41 PM
  */
-public class AQClass1CaCreator implements BCConstant {
-
-    public static String MAD_CLASS1_CA = "/Users/madding/output/aqnote_class1_ca";
+public class AQClass1CaCreator extends AQMain {
 
     public static void main(String[] args) throws Exception {
-        createNewChain();
-
-        PKCS12PfxPdu pfx = PKCSReader.readPKCS12(new FileInputStream(MAD_CLASS1_CA + P12_SUFFIX), USER_CERT_PASSWD);
-        System.out.println(pfx.toASN1Structure());
-        readByKeyStore(MAD_CLASS1_CA + P12_SUFFIX);
+        // createNewChain();
+        createNewChainWithCa(ROOT_CA);
+        
+        readByKeyStore(CLASS1_CA + P12_SUFFIX, X500NameUtil.DN_CLASS1_ROOT_CN);
     }
 
     protected static void createExistChain() throws Exception {
 
-        X509Certificate caCert = CaCertLoader.getCaCrt();
-        PrivateKey caPrivKey = CaCertLoader.getCaKeyPair().getPrivate();
+        X509Certificate pCert = CaCertLoader.getCaCert();
+        KeyPair pKeyPair = CaCertLoader.getCaKeyPair();
 
-        KeyPair pKeyPair = CaCertLoader.getClass1CaKeyPair();
-        X509Certificate serverCaCert = BCCertGenerator.getIns().createClass1CaCert(pKeyPair, caPrivKey, caCert);
-        X509Certificate[] serverCaChain = new X509Certificate[2];
-        serverCaChain[0] = serverCaCert;
-        serverCaChain[1] = caCert;
+        PublicKey publicKey = CaCertLoader.getClass1CaKeyPair().getPublic();
+        X509Certificate middleCert = BCCertGenerator.getIns().createClass1CaCert(publicKey, pKeyPair);
+        X509Certificate[] chain = new X509Certificate[2];
+        chain[0] = middleCert;
+        chain[1] = pCert;
 
-        FileOutputStream oStream = new FileOutputStream(new File(MAD_CLASS1_CA + P12_SUFFIX));
-        PKCSWriter.storePKCS12File(serverCaChain, pKeyPair.getPrivate(), USER_CERT_PASSWD, oStream);
+        FileOutputStream oStream = new FileOutputStream(new File(CLASS1_CA + P12_SUFFIX));
+        PKCSWriter.storePKCS12File(chain, pKeyPair.getPrivate(), USER_CERT_PASSWD, oStream);
         oStream.close();
         System.out.println("mad server ca created end....");
     }
 
     protected static void createNewChain() throws Exception {
 
-        X509Certificate caCert = CaCertLoader.getCaCrt();
-        PrivateKey pPrivKey = CaCertLoader.getCaKeyPair(USER_CERT_PASSWD).getPrivate();
+        X509Certificate pCert = CaCertLoader.getCaCert();
+        KeyPair pKeyPair = CaCertLoader.getCaKeyPair(USER_CERT_PASSWD);
 
         KeyPair keyPair = KeyPairUtil.generateRSAKeyPair(1024);
 
-        X509Certificate middleCert = BCCertGenerator.getIns().createClass1CaCert(keyPair, pPrivKey, caCert);
+        X509Certificate middleCert = BCCertGenerator.getIns().createClass1CaCert(keyPair.getPublic(), pKeyPair);
         X509Certificate[] chain = new X509Certificate[2];
         chain[0] = middleCert;
-        chain[1] = caCert;
+        chain[1] = pCert;
 
-        FileOutputStream ostream = new FileOutputStream(new File(MAD_CLASS1_CA + KEY_SUFFIX));
-        PKCSWriter.storeKeyFile(keyPair, ostream, USER_CERT_PASSWD);
+        FileOutputStream ostream = new FileOutputStream(new File(CLASS1_CA + PEMCERT_SUFFIX));
+        PKCSWriter.storeCertFile(middleCert, ostream);
+        
+        ostream = new FileOutputStream(new File(CLASS1_CA + PEMKEY_SUFFIX));
+        PKCSWriter.storeKeyFile(keyPair.getPrivate(), ostream, USER_CERT_PASSWD);
 
-        ostream = new FileOutputStream(new File(MAD_CLASS1_CA + CRT_SUFFIX));
-        PKCSWriter.storeDERFile(middleCert, ostream);
-
-        ostream = new FileOutputStream(new File(MAD_CLASS1_CA + P12_SUFFIX));
-        PKCSWriter.storePKCS12File(chain, pPrivKey, USER_CERT_PASSWD, ostream);
+        ostream = new FileOutputStream(new File(CLASS1_CA + P12_SUFFIX));
+        PKCSWriter.storePKCS12File(chain, keyPair.getPrivate(), USER_CERT_PASSWD, ostream);
         ostream.close();
 
         System.out.println("mad server ca created end....");
     }
 
-    protected static void readByKeyStore(String ca) throws Exception {
-        KeyStore pkcs12Store = KeyStore.getInstance("PKCS12", JCE_PROVIDER);
+    protected static void createNewChainWithCa(String cafilepath) throws Exception {
 
-        pkcs12Store.load(new FileInputStream(ca), USER_CERT_PASSWD);
+        InputStream iscert = new FileInputStream(new File(cafilepath + PEMCERT_SUFFIX));
+        X509Certificate pCert = PKCSReader.readCert(iscert);
 
-        System.out.println("########## KeyStore Dump");
+        InputStream iskey = new FileInputStream(new File(cafilepath + PEMKEY_SUFFIX));
+        KeyPair pKeyPair = PKCSReader.readKeyPair(iskey, USER_CERT_PASSWD);
 
-        for (Enumeration<?> en = pkcs12Store.aliases(); en.hasMoreElements();) {
-            String alias = (String) en.nextElement();
+        KeyPair keyPair = KeyPairUtil.generateRSAKeyPair(1024);
+        X509Certificate middleCert = BCCertGenerator.getIns().createClass1CaCert(keyPair.getPublic(), pKeyPair);
+        X509Certificate[] chain = new X509Certificate[2];
+        chain[0] = middleCert;
+        chain[1] = pCert;
 
-            if (pkcs12Store.isCertificateEntry(alias)) {
-                System.out.println("Certificate Entry: " + alias + ", Subject: "
-                                   + (((X509Certificate) pkcs12Store.getCertificate(alias)).getSubjectDN()));
-            } else if (pkcs12Store.isKeyEntry(alias)) {
-                System.out.println("Key Entry: " + alias + ", Subject: "
-                                   + (((X509Certificate) pkcs12Store.getCertificate(alias)).getSubjectDN()));
-            }
-        }
+        FileOutputStream ostream = new FileOutputStream(new File(CLASS1_CA + PEMCERT_SUFFIX));
+        PKCSWriter.storeCertFile(middleCert, ostream);
+        
+        ostream = new FileOutputStream(new File(CLASS1_CA + PEMKEY_SUFFIX));
+        PKCSWriter.storeKeyFile(keyPair, ostream, USER_CERT_PASSWD);
 
-        System.out.println();
+        ostream = new FileOutputStream(new File(CLASS1_CA + P12_SUFFIX));
+        PKCSWriter.storePKCS12File(chain, keyPair.getPrivate(), USER_CERT_PASSWD, ostream);
+        ostream.close();
+
+        System.out.println("mad server ca created end....");
     }
 }

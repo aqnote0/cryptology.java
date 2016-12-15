@@ -50,7 +50,7 @@ public class X500NameUtil {
     public static final String DN_E_ROOT         = "madding.lip@gmail.com";
 
     /** madding根证书构造 */
-    public static X500Name createRootPrincipal() {
+    public static X500Name createRootCaPrincipal() {
         X500NameBuilder x500NameBuilder = new X500NameBuilder(BCStyle.INSTANCE);
         x500NameBuilder.addRDN(BCStyle.E, DN_ROOT_E);
         x500NameBuilder.addRDN(BCStyle.CN, DN_ROOT_CN);
@@ -59,7 +59,7 @@ public class X500NameUtil {
         return x500NameBuilder.build();
     }
 
-    public static X500Name createClass1RootPrincipal() {
+    public static X500Name createClass1CaPrincipal() {
         X500NameBuilder x500NameBuilder = new X500NameBuilder(BCStyle.INSTANCE);
         x500NameBuilder.addRDN(BCStyle.CN, DN_CLASS1_ROOT_CN);
         x500NameBuilder.addRDN(BCStyle.OU, DN_OU);
@@ -79,7 +79,7 @@ public class X500NameUtil {
         return x500NameBuilder.build();
     }
 
-    public static X500Name createClass3RootPrincipal() {
+    public static X500Name createClass3CaPrincipal() {
         X500NameBuilder x500NameBuilder = new X500NameBuilder(BCStyle.INSTANCE);
         x500NameBuilder.addRDN(BCStyle.CN, DN_CLASS3_ROOT_CN);
         x500NameBuilder.addRDN(BCStyle.OU, DN_ROOT_OU);

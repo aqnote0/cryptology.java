@@ -24,7 +24,7 @@ public class BlowfishTest extends TestCase {
     Blowfish blowfish = null;
 
     protected void setUp() throws Exception {
-        String salt = "$2y$04$ZZhIL7fU78qlwfifib493J";
+//        String salt = "$2y$04$ZZhIL7fU78qlwfifib493J";
 
         blowfish = new Blowfish("ZZhIL7fU78qlwfifib493J", new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 });
     }

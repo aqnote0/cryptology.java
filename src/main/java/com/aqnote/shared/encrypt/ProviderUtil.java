@@ -19,6 +19,8 @@ import java.security.Security;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import com.aqnote.shared.encrypt.cert.bc.constant.BCConstant;
+
 /**
  * Provider.java desc：TODO 
  * @author madding.lip Dec 23, 2015 5:42:52 PM
@@ -26,7 +28,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 public class ProviderUtil {
     
     public static void addBCProvider() {
-        Provider bcProvider = Security.getProvider(BouncyCastleProvider.PROVIDER_NAME);
+        Provider bcProvider = Security.getProvider(BCConstant.JCE_PROVIDER);
         if(bcProvider == null) {
             Security.addProvider(new BouncyCastleProvider());
         }
