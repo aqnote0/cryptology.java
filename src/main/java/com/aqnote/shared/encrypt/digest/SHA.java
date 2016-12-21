@@ -32,7 +32,7 @@ import org.bouncycastle.jcajce.provider.digest.SHA384;
 import org.bouncycastle.jcajce.provider.digest.SHA512;
 
 import com.aqnote.shared.encrypt.ProviderUtil;
-import com.aqnote.shared.encrypt.util.ByteUtil;
+import com.aqnote.shared.encrypt.util.lang.ByteUtil;
 
 /**
  * 类SHA.java的实现描述：定义SHA算法相关接口，范围：SHA1 SHA2 serial, SHA3

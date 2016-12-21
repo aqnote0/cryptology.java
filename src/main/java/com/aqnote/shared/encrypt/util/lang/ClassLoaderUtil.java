@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.aqnote.shared.encrypt.util;
+package com.aqnote.shared.encrypt.util.lang;
 
 /**
  * 类ClassLoaderUtil.java的实现描述：classLoader加载类

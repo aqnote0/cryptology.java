@@ -24,8 +24,8 @@ import org.apache.commons.lang.StringUtils;
 
 import com.aqnote.shared.encrypt.ProviderUtil;
 import com.aqnote.shared.encrypt.cert.bc.cover.PKCSReader;
-import com.aqnote.shared.encrypt.util.ClassLoaderUtil;
-import com.aqnote.shared.encrypt.util.StreamUtil;
+import com.aqnote.shared.encrypt.util.lang.ClassLoaderUtil;
+import com.aqnote.shared.encrypt.util.lang.StreamUtil;
 
 /**
  * 类CaCertLoader.java的实现描述：ca文件到内存持久化工具类

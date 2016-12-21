@@ -30,7 +30,7 @@ import junit.framework.TestCase;
 public class AESTest extends TestCase {
 
     public void test() throws UnsupportedEncodingException, RuntimeException {
-        Assert.assertEquals("8c08156ddee73404ecada83f81d3a4e4", AES.encrypt("testlip"));
-        Assert.assertEquals(AES.decrypt("8c08156ddee73404ecada83f81d3a4e4"), "testlip");
+        System.out.println(AES.encrypt("testlip"));
+        Assert.assertEquals(AES.decrypt(AES.encrypt("testlip")), "testlip");
     }
 }

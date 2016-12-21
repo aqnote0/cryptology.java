@@ -24,7 +24,7 @@ import com.aqnote.shared.encrypt.cert.gen.JDKCertGenerator;
 import com.aqnote.shared.encrypt.cert.jdk.util.KeyStoreFileUtil;
 import com.aqnote.shared.encrypt.cert.jdk.util.PrivateKeyFileUtil;
 import com.aqnote.shared.encrypt.cert.jdk.util.X509CertFileUtil;
-import com.aqnote.shared.encrypt.util.CommonUtil;
+import com.aqnote.shared.encrypt.util.lang.CommonUtil;
 
 /**
  * 类AQCaCreator.java的实现描述：TODO 类实现描述

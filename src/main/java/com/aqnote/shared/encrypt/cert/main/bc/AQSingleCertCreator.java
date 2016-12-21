@@ -1,16 +1,10 @@
 /*
- * Copyright 2013-2023 Peng Li <madding.lip@gmail.com>
- * Licensed under the AQNote License, Version 1.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.aqnote.com/licenses/LICENSE-1.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2013-2023 Peng Li <madding.lip@gmail.com> Licensed under the AQNote License, Version 1.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ * http://www.aqnote.com/licenses/LICENSE-1.0 Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language governing permissions and limitations under the
+ * License.
  */
 package com.aqnote.shared.encrypt.cert.main.bc;
 
@@ -33,7 +27,7 @@ import com.aqnote.shared.encrypt.cert.bc.util.KeyPairUtil;
 import com.aqnote.shared.encrypt.cert.dataobject.MadCertificateObject;
 import com.aqnote.shared.encrypt.cert.exception.CertException;
 import com.aqnote.shared.encrypt.cert.gen.SingleX509V1Creator;
-import com.aqnote.shared.encrypt.util.MessageUtil;
+import com.aqnote.shared.encrypt.util.lang.MessageUtil;
 
 /**
  * 类AQSingleCertCreator.java的实现描述：证书创建工厂类
@@ -58,13 +52,12 @@ public class AQSingleCertCreator {
         // create the input stream
         ByteArrayOutputStream bOut = new ByteArrayOutputStream();
 
-        MadCertificateObject certObject =new MadCertificateObject();
+        MadCertificateObject certObject = new MadCertificateObject();
         certObject.setNotBefore(new Date(System.currentTimeMillis()));
         certObject.setNotAfter(new Date(System.currentTimeMillis() + ROOT_CERT_INDATE));
         String subject = MessageUtil.formatMessage(SUBJECT_Pattern, "madding.lip", "madding.lip@gmail.com");
         certObject.setSubject(subject);
         certObject.setIssuer(ISSUE_STRING);
-        
 
         try {
             bOut.write(SingleX509V1Creator.generate(certObject, pair).getEncoded());

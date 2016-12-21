@@ -29,7 +29,7 @@ import java.security.SecureRandom;
 
 import org.apache.commons.codec.binary.Base64;
 
-import com.aqnote.shared.encrypt.util.StreamUtil;
+import com.aqnote.shared.encrypt.util.lang.StreamUtil;
 
 /**
  * 类KeyPairGenerator.java的实现描述： DSA方式加密提供私钥和公钥

@@ -26,7 +26,7 @@ import java.security.cert.X509Certificate;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 
-import com.aqnote.shared.encrypt.util.StreamUtil;
+import com.aqnote.shared.encrypt.util.lang.StreamUtil;
 
 import sun.security.action.GetPropertyAction;
 import sun.security.util.ObjectIdentifier;

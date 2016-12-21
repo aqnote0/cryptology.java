@@ -27,7 +27,7 @@ import org.apache.commons.codec.binary.Base64;
 
 import com.Ostermiller.util.CircularByteBuffer;
 import com.aqnote.shared.encrypt.cert.exception.CertException;
-import com.aqnote.shared.encrypt.util.StreamUtil;
+import com.aqnote.shared.encrypt.util.lang.StreamUtil;
 
 /**
  * 类KeyStoreTool.java的实现描述：TODO 类实现描述

@@ -28,7 +28,7 @@ import org.bouncycastle.jcajce.provider.digest.MD4;
 import org.bouncycastle.jcajce.provider.digest.MD5;
 
 import com.aqnote.shared.encrypt.ProviderUtil;
-import com.aqnote.shared.encrypt.util.ByteUtil;
+import com.aqnote.shared.encrypt.util.lang.ByteUtil;
 
 /**
  * 类Md5.java的实现描述：TODO 类实现描述 query OID: http://www.oid-info.com/get/2.16.840.1.101.3.4.2.6

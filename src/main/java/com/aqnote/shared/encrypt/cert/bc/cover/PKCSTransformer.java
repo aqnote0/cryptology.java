@@ -31,7 +31,7 @@ import org.bouncycastle.pkcs.PKCS12PfxPdu;
 
 import com.Ostermiller.util.CircularByteBuffer;
 import com.aqnote.shared.encrypt.cert.bc.constant.BCConstant;
-import com.aqnote.shared.encrypt.util.StreamUtil;
+import com.aqnote.shared.encrypt.util.lang.StreamUtil;
 
 /**
  * 类PKCSTransformer.java的实现描述：keystore处理工具类

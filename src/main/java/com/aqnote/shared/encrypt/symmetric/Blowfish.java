@@ -46,7 +46,7 @@ public class Blowfish {
     private static final String    PROVIDER_NAME   = JCE_PROVIDER;
     private static final String    DEFAULT_CHARSET = "UTF-8";
     private static final String    CIPHER_NAME     = "Blowfish/CBC/PKCS5Padding";
-    private static final String    ALGO_BLOWFISH   = "Blowfish";
+    private static final String    ALGORITHM       = "Blowfish";
 
     private Key                    keySpec         = null;
     private AlgorithmParameterSpec paramSpec       = null;
@@ -58,7 +58,7 @@ public class Blowfish {
     }
 
     public Blowfish(String keySpec, byte[] paramSpec){
-        this.keySpec = new SecretKeySpec(keySpec.getBytes(), ALGO_BLOWFISH);
+        this.keySpec = new SecretKeySpec(keySpec.getBytes(), ALGORITHM);
         this.paramSpec = new IvParameterSpec(paramSpec);
         initBlowfish();
     }

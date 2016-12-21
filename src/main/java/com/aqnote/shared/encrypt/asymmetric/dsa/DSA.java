@@ -14,7 +14,7 @@
  */
 package com.aqnote.shared.encrypt.asymmetric.dsa;
 
-import static com.aqnote.shared.encrypt.util.ByteUtil.toHexString;
+import static com.aqnote.shared.encrypt.util.lang.ByteUtil.toHexString;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

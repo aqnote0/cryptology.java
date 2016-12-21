@@ -22,15 +22,23 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import com.aqnote.shared.encrypt.cert.bc.constant.BCConstant;
 
 /**
- * Provider.java desc：TODO 
+ * Provider.java desc：TODO
+ * 
  * @author madding.lip Dec 23, 2015 5:42:52 PM
  */
 public class ProviderUtil {
-    
-    public static void addBCProvider() {
-        Provider bcProvider = Security.getProvider(BCConstant.JCE_PROVIDER);
-        if(bcProvider == null) {
-            Security.addProvider(new BouncyCastleProvider());
-        }
-    }
+
+	public static void addBCProvider() {
+		Provider bcProvider = Security.getProvider(BCConstant.JCE_PROVIDER);
+		if (bcProvider == null) {
+			Security.addProvider(new BouncyCastleProvider());
+		}
+	}
+
+	public static void addBCProviderFirst() {
+		Provider bcProvider = Security.getProvider(BCConstant.JCE_PROVIDER);
+		if (bcProvider == null) {
+			Security.insertProviderAt(new BouncyCastleProvider(), 1);
+		}
+	}
 }

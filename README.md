@@ -1,25 +1,48 @@
-# java.encrypt
-java加解密工具和证书操作库
+### aqnote.cryptography ###
 
-## 加密
+#### develop ####
+-------------------------------------------------------------
 
-### 对称加密
+- install  
+```bash
+  mvn install -Dmaven.test.skip
+```
+- import into eclipse  
+```bash
+  mvn clean;mvn install -Dmaven.test.skip  
+  mvn eclipse:eclipse
+```
 
-### 非对称加密
+- code template:  
+ if you want to add some tools or fix bugs,the follow path is need for you  
+ [模版配置类](https://github.com/aqnotecom/codestyle/tree/master/eclipse/templates)
 
-### 消息摘要算法
+#### update ####
 
+TODO:
 
-## 证书签发
+- add More cryptography and tools.
 
-### CA证书生成
+----------------------------------------
 
-### 中间证书生成
+** version 1.0.0 **
 
-### Radius证书生成
-
-### 用户证书生成
-
-### 证书吊销
-
-### 证书在线校验
+- 增加证书链操作相关工具类
+  - 签发根证书
+  - 签发中级证书
+  - 签发radius服务器证书
+  - 签发普通端证书
+  - 签发支持vpn、radius客户端证书
+- 增加非对称密钥算法DSA
+- 增加非对称密钥算法RSA
+- 增加对称密钥算法AES
+- 增加对称密钥算法Blowfish
+- 增加对称密钥算法DES
+- 增加密钥算法工具类
+  - 字节操作工具类
+  - 证书工具类
+  - 字节码加载器工具类
+- 增加数字摘要算法MDx
+- 增加数字摘要算法SHAx
+- 增加数字摘要算法SMx
+- 增加数字摘要算法Murmurx
