@@ -6,7 +6,7 @@
  * either express or implied. See the License for the specific language governing permissions and limitations under the
  * License.
  */
-package com.aqnote.shared.encrypt.cert.main.bc;
+package com.aqnote.shared.encrypt.cert.bc.main;
 
 import static com.aqnote.shared.encrypt.cert.bc.constant.BCConstant.JCE_PROVIDER;
 
@@ -24,7 +24,7 @@ import java.util.Date;
 
 import com.aqnote.shared.encrypt.ProviderUtil;
 import com.aqnote.shared.encrypt.cert.bc.util.KeyPairUtil;
-import com.aqnote.shared.encrypt.cert.dataobject.MadCertificateObject;
+import com.aqnote.shared.encrypt.cert.dataobject.AQCertificateObject;
 import com.aqnote.shared.encrypt.cert.exception.CertException;
 import com.aqnote.shared.encrypt.cert.gen.SingleX509V1Creator;
 import com.aqnote.shared.encrypt.util.lang.MessageUtil;
@@ -34,7 +34,7 @@ import com.aqnote.shared.encrypt.util.lang.MessageUtil;
  * 
  * @author madding.lip Dec 5, 2013 10:05:31 AM
  */
-public class AQSingleCertCreator {
+public class AQSingleCertMain {
 
     public static final long   ROOT_CERT_INDATE   = 20 * 365 * 24 * 60L * 60 * 1000L;
     public static final long   CLIENT_CERT_INDATE = 5 * 365 * 24 * 60L * 60 * 1000L;
@@ -52,7 +52,7 @@ public class AQSingleCertCreator {
         // create the input stream
         ByteArrayOutputStream bOut = new ByteArrayOutputStream();
 
-        MadCertificateObject certObject = new MadCertificateObject();
+        AQCertificateObject certObject = new AQCertificateObject();
         certObject.setNotBefore(new Date(System.currentTimeMillis()));
         certObject.setNotAfter(new Date(System.currentTimeMillis() + ROOT_CERT_INDATE));
         String subject = MessageUtil.formatMessage(SUBJECT_Pattern, "madding.lip", "madding.lip@gmail.com");
@@ -81,6 +81,6 @@ public class AQSingleCertCreator {
     }
 
     public static void main(String[] args) throws CertException {
-        AQSingleCertCreator.create();
+        AQSingleCertMain.create();
     }
 }

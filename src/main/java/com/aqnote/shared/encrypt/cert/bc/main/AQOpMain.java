@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.aqnote.shared.encrypt.cert.main.bc;
+package com.aqnote.shared.encrypt.cert.bc.main;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,16 +26,16 @@ import org.bouncycastle.pkcs.PKCS12PfxPdu;
 import com.aqnote.shared.encrypt.cert.bc.constant.BCConstant;
 import com.aqnote.shared.encrypt.cert.bc.cover.PKCSReader;
 import com.aqnote.shared.encrypt.cert.bc.cover.PKCSWriter;
+import com.aqnote.shared.encrypt.cert.bc.gen.CertGenerator;
 import com.aqnote.shared.encrypt.cert.bc.loader.CaCertLoader;
 import com.aqnote.shared.encrypt.cert.bc.util.KeyPairUtil;
-import com.aqnote.shared.encrypt.cert.gen.BCCertGenerator;
 
 /**
  * 类AQOpCreator.java的实现描述：
  * 
  * @author madding.lip Dec 6, 2013 9:23:41 PM
  */
-public class AQOpCreator implements BCConstant {
+public class AQOpMain implements BCConstant {
 
     public static final String MAD_ROOT_CA = "/home/madding/output/aqnote_root_ca";
 
@@ -70,8 +70,8 @@ public class AQOpCreator implements BCConstant {
 
     protected static void createExistRootChain() throws Exception {
 
-        KeyPair intKeyPair = CaCertLoader.getCaKeyPair();
-        X509Certificate clientCaCert = BCCertGenerator.getIns().createRootCaCert(intKeyPair);
+        KeyPair intKeyPair = CaCertLoader.getRootCaKeyPair();
+        X509Certificate clientCaCert = CertGenerator.getIns().createRootCaCert(intKeyPair);
         X509Certificate[] clientCaChain = new X509Certificate[1];
         clientCaChain[0] = clientCaCert;
 
@@ -84,7 +84,7 @@ public class AQOpCreator implements BCConstant {
     protected static void createNewRootChain() throws Exception {
 
         KeyPair keyPair = KeyPairUtil.generateRSAKeyPair(1024);
-        X509Certificate clientCaCert = BCCertGenerator.getIns().createRootCaCert(keyPair);
+        X509Certificate clientCaCert = CertGenerator.getIns().createRootCaCert(keyPair);
         X509Certificate[] clientCaChain = new X509Certificate[1];
         clientCaChain[0] = clientCaCert;
 

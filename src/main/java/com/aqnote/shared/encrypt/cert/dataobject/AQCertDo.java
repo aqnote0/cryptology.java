@@ -1,16 +1,10 @@
 /*
- * Copyright 2013-2023 Peng Li <madding.lip@gmail.com>
- * Licensed under the AQNote License, Version 1.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.aqnote.com/licenses/LICENSE-1.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2013-2023 Peng Li <madding.lip@gmail.com> Licensed under the AQNote License, Version 1.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ * http://www.aqnote.com/licenses/LICENSE-1.0 Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language governing permissions and limitations under the
+ * License.
  */
 package com.aqnote.shared.encrypt.cert.dataobject;
 
@@ -24,7 +18,7 @@ import com.alibaba.fastjson.JSON;
  * 
  * @author madding.lip Nov 17, 2013 10:59:28 PM
  */
-public class MadCertDo implements Serializable {
+public class AQCertDo implements Serializable {
 
     private static final long serialVersionUID = 815492566333086681L;
 
@@ -121,7 +115,7 @@ public class MadCertDo implements Serializable {
     public String getKeyPwd() {
         return keyPwd;
     }
-    
+
     public String toString() {
         return JSON.toJSONString(this);
     }

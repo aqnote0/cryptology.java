@@ -8,8 +8,6 @@
  */
 package com.aqnote.shared.encrypt.cert;
 
-import static com.aqnote.shared.encrypt.cert.gen.BCCertGenerator.getIns;
-
 import java.security.KeyPair;
 import java.security.cert.X509Certificate;
 import java.util.Map;
@@ -20,10 +18,11 @@ import org.slf4j.LoggerFactory;
 
 import com.aqnote.shared.encrypt.ProviderUtil;
 import com.aqnote.shared.encrypt.cert.bc.cover.PKCSTransformer;
+import com.aqnote.shared.encrypt.cert.bc.gen.CertGenerator;
 import com.aqnote.shared.encrypt.cert.bc.loader.CaCertLoader;
 import com.aqnote.shared.encrypt.cert.bc.util.KeyPairUtil;
 import com.aqnote.shared.encrypt.cert.bc.util.X500NameUtil;
-import com.aqnote.shared.encrypt.cert.dataobject.MadCertDo;
+import com.aqnote.shared.encrypt.cert.dataobject.AQCertDo;
 
 /**
  * 类MadBCCertSystem.java的实现描述：证书生成系统
@@ -39,7 +38,7 @@ public class BCCertSystem {
     }
 
     // 颁发证书
-    public static MadCertDo issueClientCert(long serialNo, String alias, String cn, String email, String title,
+    public static AQCertDo issueClientCert(long serialNo, String alias, String cn, String email, String title,
                                             Map<String, String> exts, char[] pwd) throws Exception {
 
         KeyPair caKeyPair = CaCertLoader.getClass3CaKeyPair();
@@ -48,9 +47,9 @@ public class BCCertSystem {
 
         KeyPair keyPair = KeyPairUtil.generateRSAKeyPair();
 
-        X509Certificate endCert = getIns().createClass3EndCert(serialNo, subject, exts, keyPair.getPublic(), caKeyPair);
+        X509Certificate endCert = CertGenerator.getIns().createClass3EndCert(serialNo, subject, exts, keyPair.getPublic(), caKeyPair);
 
-        MadCertDo madCertDo = new MadCertDo();
+        AQCertDo madCertDo = new AQCertDo();
         madCertDo.setSerialNumber(serialNo);
         madCertDo.setNotBefore(endCert.getNotBefore());
         madCertDo.setNotAfter(endCert.getNotAfter());

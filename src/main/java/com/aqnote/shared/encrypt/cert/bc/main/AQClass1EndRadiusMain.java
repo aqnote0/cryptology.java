@@ -6,7 +6,7 @@
  * either express or implied. See the License for the specific language governing permissions and limitations under the
  * License.
  */
-package com.aqnote.shared.encrypt.cert.main.bc;
+package com.aqnote.shared.encrypt.cert.bc.main;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,16 +19,16 @@ import org.bouncycastle.asn1.x500.X500Name;
 
 import com.aqnote.shared.encrypt.cert.bc.cover.PKCSReader;
 import com.aqnote.shared.encrypt.cert.bc.cover.PKCSWriter;
+import com.aqnote.shared.encrypt.cert.bc.gen.CertGenerator;
 import com.aqnote.shared.encrypt.cert.bc.util.KeyPairUtil;
 import com.aqnote.shared.encrypt.cert.bc.util.X500NameUtil;
-import com.aqnote.shared.encrypt.cert.gen.BCCertGenerator;
 
 /**
  * 类AQClass1EndCreator_Radius.java的实现描述：radius服务器证书够找类
  * 
  * @author madding.lip Dec 6, 2013 9:23:41 PM
  */
-public class AQClass1EndRadiusCreator extends AQMain {
+public class AQClass1EndRadiusMain extends AQMain {
 
     public static final String CLASS1_RADIUS = CERT_DIR + "/aqnote_radius";
 
@@ -55,7 +55,7 @@ public class AQClass1EndRadiusCreator extends AQMain {
         String email = "aqnote.com@gmail.com";
         X500Name subject = X500NameUtil.createClass1EndPrincipal(cn, email);
         KeyPair keyPair = KeyPairUtil.generateRSAKeyPair(1024);
-        X509Certificate endCert = BCCertGenerator.getIns().createClass1EndCert(subject, keyPair.getPublic(), pKeyPair);
+        X509Certificate endCert = CertGenerator.getIns().createClass1EndCert(subject, keyPair.getPublic(), pKeyPair);
         chain[0] = endCert;
 
         FileOutputStream ostream = new FileOutputStream(new File(CLASS1_RADIUS + PEMKEY_SUFFIX));

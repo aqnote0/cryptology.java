@@ -1,16 +1,10 @@
 /*
- * Copyright 2013-2023 Peng Li <madding.lip@gmail.com>
- * Licensed under the AQNote License, Version 1.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.aqnote.com/licenses/LICENSE-1.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2013-2023 Peng Li <madding.lip@gmail.com> Licensed under the AQNote License, Version 1.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ * http://www.aqnote.com/licenses/LICENSE-1.0 Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language governing permissions and limitations under the
+ * License.
  */
 package com.aqnote.shared.encrypt.cert.bc.loader;
 
@@ -39,19 +33,19 @@ public class CaCertLoader {
     }
 
     private static final String    CA_Cert_FILE         = "META-INF/aqnote/root_ca_cert.pem";
-    private static final String    CA_KEY_FILE         = "META-INF/aqnote/root_ca_key.pem";
+    private static final String    CA_KEY_FILE          = "META-INF/aqnote/root_ca_key.pem";
     private static final String    CLASS1_CA_Cert_FILE  = "META-INF/aqnote/class1_ca_cert.pem";
-    private static final String    CLASS1_CA_KEY_FILE  = "META-INF/aqnote/class1_ca_key.pem";
+    private static final String    CLASS1_CA_KEY_FILE   = "META-INF/aqnote/class1_ca_key.pem";
     private static final String    CLASS2_CA_Cert_FILE  = "META-INF/aqnote/class2_ca_cert.pem";
-    private static final String    CLASS2_CA_KEY_FILE  = "META-INF/aqnote/class2_ca_key.pem";
+    private static final String    CLASS2_CA_KEY_FILE   = "META-INF/aqnote/class2_ca_key.pem";
     private static final String    CLASS_3_CA_Cert_FILE = "META-INF/aqnote/class3_ca_cert.pem";
-    private static final String    CLASS_3_CA_KEY_FILE = "META-INF/aqnote/class3_ca_key.pem";
+    private static final String    CLASS_3_CA_KEY_FILE  = "META-INF/aqnote/class3_ca_key.pem";
 
-    private static final String    BEGIN_CERT          = "-----BEGIN CERTIFICATE-----\n";
-    private static final String    END_CERT            = "-----END CERTIFICATE-----\n";
+    private static final String    BEGIN_CERT           = "-----BEGIN CERTIFICATE-----\n";
+    private static final String    END_CERT             = "-----END CERTIFICATE-----\n";
 
-    private static X509Certificate caCert;
-    private static KeyPair         caKeyPair;
+    private static X509Certificate rootCaCert;
+    private static KeyPair         rootCaKeyPair;
     private static X509Certificate class1CaCert;
     private static KeyPair         class1CaKeyPair;
     private static X509Certificate class2CaCert;
@@ -59,47 +53,47 @@ public class CaCertLoader {
     private static X509Certificate class3RootCert;
     private static KeyPair         class3RootKeyPair;
 
-    private static String          b64CaCert;
+    private static String          b64RootCaCert;
 
-    public synchronized static X509Certificate getCaCert() throws IOException {
-        if (caCert == null) {
+    public synchronized static X509Certificate getRootCaCert() throws IOException {
+        if (rootCaCert == null) {
             ClassLoader classLoader = ClassLoaderUtil.getClassLoader();
             InputStream is = classLoader.getResourceAsStream(CA_Cert_FILE);
-            caCert = PKCSReader.readCert(is);
+            rootCaCert = PKCSReader.readCert(is);
             is.close();
         }
-        return caCert;
+        return rootCaCert;
     }
 
-    public synchronized static String getB64CaCert() throws IOException {
-        if (StringUtils.isBlank(b64CaCert)) {
+    public synchronized static String getB64RootCaCert() throws IOException {
+        if (StringUtils.isBlank(b64RootCaCert)) {
             ClassLoader classLoader = ClassLoaderUtil.getClassLoader();
             InputStream is = classLoader.getResourceAsStream(CA_Cert_FILE);
-            b64CaCert = StreamUtil.stream2Bytes(is, StandardCharsets.UTF_8);
-            b64CaCert = StringUtils.removeStart(b64CaCert, BEGIN_CERT);
-            b64CaCert = StringUtils.removeEnd(b64CaCert, END_CERT);
+            b64RootCaCert = StreamUtil.stream2Bytes(is, StandardCharsets.UTF_8);
+            b64RootCaCert = StringUtils.removeStart(b64RootCaCert, BEGIN_CERT);
+            b64RootCaCert = StringUtils.removeEnd(b64RootCaCert, END_CERT);
         }
-        return b64CaCert;
+        return b64RootCaCert;
     }
 
-    public synchronized static KeyPair getCaKeyPair() throws IOException {
-        if (caKeyPair == null) {
+    public synchronized static KeyPair getRootCaKeyPair() throws IOException {
+        if (rootCaKeyPair == null) {
             ClassLoader classLoader = ClassLoaderUtil.getClassLoader();
             InputStream is = classLoader.getResourceAsStream(CA_KEY_FILE);
-            caKeyPair = PKCSReader.readKeyPair(is, null);
+            rootCaKeyPair = PKCSReader.readKeyPair(is, null);
             is.close();
         }
-        return caKeyPair;
+        return rootCaKeyPair;
     }
 
-    public synchronized static KeyPair getCaKeyPair(char[] pwd) throws IOException {
-        if (caKeyPair == null) {
+    public synchronized static KeyPair getRootCaKeyPair(char[] pwd) throws IOException {
+        if (rootCaKeyPair == null) {
             ClassLoader classLoader = ClassLoaderUtil.getClassLoader();
             InputStream is = classLoader.getResourceAsStream(CA_KEY_FILE);
-            caKeyPair = PKCSReader.readKeyPair(is, pwd);
+            rootCaKeyPair = PKCSReader.readKeyPair(is, pwd);
             is.close();
         }
-        return caKeyPair;
+        return rootCaKeyPair;
     }
 
     public synchronized static X509Certificate getClass1CaCert() throws IOException {

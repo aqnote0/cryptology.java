@@ -6,7 +6,7 @@
  * either express or implied. See the License for the specific language governing permissions and limitations under the
  * License.
  */
-package com.aqnote.shared.encrypt.cert.main.bc;
+package com.aqnote.shared.encrypt.cert.bc.main;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -20,10 +20,10 @@ import com.aqnote.shared.encrypt.ProviderUtil;
 import com.aqnote.shared.encrypt.cert.bc.constant.BCConstant;
 import com.aqnote.shared.encrypt.cert.bc.cover.PKCSReader;
 import com.aqnote.shared.encrypt.cert.bc.cover.PKCSWriter;
+import com.aqnote.shared.encrypt.cert.bc.gen.CertGenerator;
 import com.aqnote.shared.encrypt.cert.bc.loader.CaCertLoader;
 import com.aqnote.shared.encrypt.cert.bc.util.KeyPairUtil;
 import com.aqnote.shared.encrypt.cert.bc.util.X500NameUtil;
-import com.aqnote.shared.encrypt.cert.gen.BCCertGenerator;
 import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 
 /**
@@ -31,7 +31,7 @@ import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
  * 
  * @author madding.lip Dec 5, 2013 10:05:31 AM
  */
-public class AQPKCS10Creaetor implements BCConstant {
+public class AQPKCS10Main implements BCConstant {
 
     public static final String MAD_CLASS1_END_VPN = "/home/madding/output/aqnote_class1_end_vpn_csr_1";
 
@@ -87,7 +87,7 @@ public class AQPKCS10Creaetor implements BCConstant {
 
     public static String createPKCS10(X500Name x500Name, KeyPair keyPair) throws Exception {
         try {
-            PKCS10CertificationRequest csr = BCCertGenerator.getIns().createCSR(x500Name, keyPair);
+            PKCS10CertificationRequest csr = CertGenerator.getIns().createCSR(x500Name, keyPair);
             FileOutputStream ostream = new FileOutputStream("/home/madding/output/a.p10");
             PKCSWriter.storePKCS10File(csr, ostream);
         } catch (Exception e) {
@@ -102,7 +102,7 @@ public class AQPKCS10Creaetor implements BCConstant {
 
         X500Name issuer = X500NameUtil.createClass1CaPrincipal();
 
-        X509Certificate signedCert = BCCertGenerator.getIns().signCert(pkcs10, issuer, pKeyPair);
+        X509Certificate signedCert = CertGenerator.getIns().signCert(pkcs10, issuer, pKeyPair);
 
         FileOutputStream ostream = new FileOutputStream(new File(MAD_CLASS1_END_VPN + CRT_SUFFIX));
         PKCSWriter.storeCertFile(signedCert, ostream);

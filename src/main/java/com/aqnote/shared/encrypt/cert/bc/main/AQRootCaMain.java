@@ -6,7 +6,7 @@
  * either express or implied. See the License for the specific language governing permissions and limitations under the
  * License.
  */
-package com.aqnote.shared.encrypt.cert.main.bc;
+package com.aqnote.shared.encrypt.cert.bc.main;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -14,17 +14,17 @@ import java.security.KeyPair;
 import java.security.cert.X509Certificate;
 
 import com.aqnote.shared.encrypt.cert.bc.cover.PKCSWriter;
+import com.aqnote.shared.encrypt.cert.bc.gen.CertGenerator;
 import com.aqnote.shared.encrypt.cert.bc.loader.CaCertLoader;
 import com.aqnote.shared.encrypt.cert.bc.util.KeyPairUtil;
 import com.aqnote.shared.encrypt.cert.bc.util.X500NameUtil;
-import com.aqnote.shared.encrypt.cert.gen.BCCertGenerator;
 
 /**
  * 类AQRootCaCreator.java的实现描述：
  * 
  * @author madding.lip Dec 6, 2013 9:23:41 PM
  */
-public class AQRootCaCreator extends AQMain {
+public class AQRootCaMain extends AQMain {
 
     public static void main(String[] args) throws Exception {
         createNewRootChain();
@@ -36,8 +36,8 @@ public class AQRootCaCreator extends AQMain {
 
         long start = System.currentTimeMillis();
         System.out.println("mad client ca created start....");
-        KeyPair keyPair = CaCertLoader.getCaKeyPair();
-        X509Certificate cert = BCCertGenerator.getIns().createRootCaCert(keyPair);
+        KeyPair keyPair = CaCertLoader.getRootCaKeyPair();
+        X509Certificate cert = CertGenerator.getIns().createRootCaCert(keyPair);
         X509Certificate[] chain = new X509Certificate[1];
         chain[0] = cert;
 
@@ -53,7 +53,7 @@ public class AQRootCaCreator extends AQMain {
         long start = System.currentTimeMillis();
         System.out.println("mad client ca created start....");
         KeyPair keyPair = KeyPairUtil.generateRSAKeyPair(1024);
-        X509Certificate cert = BCCertGenerator.getIns().createRootCaCert(keyPair);
+        X509Certificate cert = CertGenerator.getIns().createRootCaCert(keyPair);
         X509Certificate[] chain = new X509Certificate[1];
         chain[0] = cert;
 

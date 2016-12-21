@@ -1,16 +1,10 @@
 /*
- * Copyright 2013-2023 Peng Li <madding.lip@gmail.com>
- * Licensed under the AQNote License, Version 1.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.aqnote.com/licenses/LICENSE-1.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2013-2023 Peng Li <madding.lip@gmail.com> Licensed under the AQNote License, Version 1.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ * http://www.aqnote.com/licenses/LICENSE-1.0 Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language governing permissions and limitations under the
+ * License.
  */
 package com.aqnote.shared.encrypt.cert.jdk.loader;
 
@@ -34,13 +28,13 @@ import com.aqnote.shared.encrypt.util.lang.StreamUtil;
  */
 public class CaCertLoader {
 
-    private static final String    CA_CRT_FILE = "META-INF/self_certca/ca.crt";
-    private static final String    CA_KEY_FILE = "META-INF/self_certca/ca.key";
+    private static final String    CA_CRT_FILE = "META-INF/aqnote/root_ca_cert.pem";
+    private static final String    CA_KEY_FILE = "META-INF/aqnote/root_ca_key.pem";
 
     private static X509Certificate cert;
     private static PrivateKey      cakPrivKey;
 
-    public synchronized static X509Certificate getCaCrt() throws CertException, CertificateException, IOException {
+    public synchronized static X509Certificate getRootCaCrt() throws CertException, CertificateException, IOException {
         if (cert == null) {
             ClassLoader classLoader = ClassLoaderUtil.getClassLoader();
             InputStream is = classLoader.getResourceAsStream(CA_CRT_FILE);
@@ -50,7 +44,7 @@ public class CaCertLoader {
         return cert;
     }
 
-    public synchronized static PrivateKey getCaKey() throws CertException {
+    public synchronized static PrivateKey getRootCaKey() throws CertException {
         if (cakPrivKey == null) {
             ClassLoader classLoader = ClassLoaderUtil.getClassLoader();
             InputStream is = classLoader.getResourceAsStream(CA_KEY_FILE);

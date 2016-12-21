@@ -19,7 +19,7 @@ import java.util.Map;
 
 import org.bouncycastle.openssl.PEMWriter;
 
-import com.aqnote.shared.encrypt.cert.main.bc.MainConstant;
+import com.aqnote.shared.encrypt.cert.bc.main.MainConstant;
 
 /**
  * CertUtilTest.java desc：test <code>CertUtil</code>

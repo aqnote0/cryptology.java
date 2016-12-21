@@ -1,18 +1,12 @@
 /*
- * Copyright 2013-2023 Peng Li <madding.lip@gmail.com>
- * Licensed under the AQNote License, Version 1.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.aqnote.com/licenses/LICENSE-1.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2013-2023 Peng Li <madding.lip@gmail.com> Licensed under the AQNote License, Version 1.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ * http://www.aqnote.com/licenses/LICENSE-1.0 Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language governing permissions and limitations under the
+ * License.
  */
-package com.aqnote.shared.encrypt.cert.gen;
+package com.aqnote.shared.encrypt.cert.jdk.gen;
 
 import static com.aqnote.shared.encrypt.cert.jdk.util.CertAndKeyGenUtil.MD5WITHRSA_SIG_ALG;
 import static com.aqnote.shared.encrypt.cert.jdk.util.CertAndKeyGenUtil.getKeyGen;
@@ -53,22 +47,22 @@ import sun.security.x509.X509CertInfo;
  * 
  * @author madding.lip
  */
-public class JDKCertGenerator {
+public class CertGenerator {
 
-    public static final String                       CA_ALIAS           = "mad_device";
+    public static final String                   CA_ALIAS           = "mad_device";
 
-    public static final long                         ROOT_CERT_INDATE   = 20 * 365 * 24 * 60L * 60 * 1000L;
-    public static final long                         CLIENT_CERT_INDATE = 5 * 365 * 24 * 60L * 60 * 1000L;
+    public static final long                     ROOT_CERT_INDATE   = 20 * 365 * 24 * 60L * 60 * 1000L;
+    public static final long                     CLIENT_CERT_INDATE = 5 * 365 * 24 * 60L * 60 * 1000L;
 
-    private static ThreadLocal<JDKCertGenerator> threadlocal        = new ThreadLocal<JDKCertGenerator>();
+    private static ThreadLocal<CertGenerator> threadlocal        = new ThreadLocal<CertGenerator>();
 
     static {
         ProviderUtil.addBCProvider();
     }
 
-    public static JDKCertGenerator getIns() {
+    public static CertGenerator getIns() {
         if (threadlocal.get() == null) {
-            threadlocal.set(new JDKCertGenerator());
+            threadlocal.set(new CertGenerator());
         }
         return threadlocal.get();
     }
@@ -129,7 +123,7 @@ public class JDKCertGenerator {
             impl.sign(gen.getPrivateKey(), MD5WITHRSA_SIG_ALG);
             X509Certificate[] certs = new X509Certificate[] { (X509Certificate) impl };
             // // 验证
-             impl.verify(gen.getPublicKey());
+            impl.verify(gen.getPublicKey());
             KeyStore keyStore = KeyStoreUtil.createPCSK12KeyStore(CA_ALIAS, gen.getPrivateKey(), passwd, certs);
             return keyStore;
         } catch (InvalidKeyException e) {
@@ -147,8 +141,8 @@ public class JDKCertGenerator {
         }
     }
 
-    private X509CertInfo initCert(X500Name subject, CertificateExtensions extensions, long indate)
-                                                                                                  throws CertException {
+    private X509CertInfo initCert(X500Name subject, CertificateExtensions extensions,
+                                  long indate) throws CertException {
 
         X509CertInfo certInfo = new X509CertInfo();
         try {
@@ -173,15 +167,15 @@ public class JDKCertGenerator {
                 certInfo.set(X509CertInfo.EXTENSIONS, extensions);
             }
 
-//            // 设置主题id
-//            String cn = subject.getCommonName();
-//            String[] cnList = cn.split("\\|");
-//            UniqueIdentity subjectUniqueId = new UniqueIdentity(cnList[0].getBytes());
-//            certInfo.set(X509CertInfo.SUBJECT_ID, new CertificateSubjectUniqueIdentity(subjectUniqueId));
-//            // 设置颁发者id
-//            String issueUniqueIdStr = "alibaba";
-//            UniqueIdentity issueUniqueId = new UniqueIdentity(issueUniqueIdStr.getBytes());
-//            certInfo.set(X509CertInfo.ISSUER_ID, new CertificateIssuerUniqueIdentity(issueUniqueId));
+            // // 设置主题id
+            // String cn = subject.getCommonName();
+            // String[] cnList = cn.split("\\|");
+            // UniqueIdentity subjectUniqueId = new UniqueIdentity(cnList[0].getBytes());
+            // certInfo.set(X509CertInfo.SUBJECT_ID, new CertificateSubjectUniqueIdentity(subjectUniqueId));
+            // // 设置颁发者id
+            // String issueUniqueIdStr = "alibaba";
+            // UniqueIdentity issueUniqueId = new UniqueIdentity(issueUniqueIdStr.getBytes());
+            // certInfo.set(X509CertInfo.ISSUER_ID, new CertificateIssuerUniqueIdentity(issueUniqueId));
             return certInfo;
         } catch (CertificateException e) {
             throw new CertException(e);

@@ -6,7 +6,7 @@
  * either express or implied. See the License for the specific language governing permissions and limitations under the
  * License.
  */
-package com.aqnote.shared.encrypt.cert.gen;
+package com.aqnote.shared.encrypt.cert.bc.gen;
 
 import static com.aqnote.shared.encrypt.cert.bc.constant.CertConstant.MAD_CRL_URL;
 import static com.aqnote.shared.encrypt.cert.bc.constant.DateConstant.FIVE_YEAR;
@@ -70,9 +70,9 @@ import com.aqnote.shared.encrypt.cert.bc.util.X500NameUtil;
  * 
  * @author madding.lip
  */
-public class BCCertGenerator implements BCConstant {
+public class CertGenerator implements BCConstant {
 
-    private static ThreadLocal<BCCertGenerator> threadlocal     = new ThreadLocal<BCCertGenerator>();
+    private static ThreadLocal<CertGenerator> threadlocal     = new ThreadLocal<CertGenerator>();
 
     protected static final KeyPurposeId[]       BASE_EKU        = new KeyPurposeId[2];
     protected static final KeyPurposeId[]       MOST_EKU        = new KeyPurposeId[5];
@@ -104,9 +104,9 @@ public class BCCertGenerator implements BCConstant {
 
     }
 
-    public static BCCertGenerator getIns() {
+    public static CertGenerator getIns() {
         if (threadlocal.get() == null) {
-            threadlocal.set(new BCCertGenerator());
+            threadlocal.set(new CertGenerator());
         }
         return threadlocal.get();
     }

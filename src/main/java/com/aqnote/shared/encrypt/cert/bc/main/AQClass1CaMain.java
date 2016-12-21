@@ -6,77 +6,77 @@
  * either express or implied. See the License for the specific language governing permissions and limitations under the
  * License.
  */
-package com.aqnote.shared.encrypt.cert.main.bc;
+package com.aqnote.shared.encrypt.cert.bc.main;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.security.KeyPair;
+import java.security.PublicKey;
 import java.security.cert.X509Certificate;
 
 import com.aqnote.shared.encrypt.cert.bc.cover.PKCSReader;
 import com.aqnote.shared.encrypt.cert.bc.cover.PKCSWriter;
+import com.aqnote.shared.encrypt.cert.bc.gen.CertGenerator;
 import com.aqnote.shared.encrypt.cert.bc.loader.CaCertLoader;
 import com.aqnote.shared.encrypt.cert.bc.util.KeyPairUtil;
 import com.aqnote.shared.encrypt.cert.bc.util.X500NameUtil;
-import com.aqnote.shared.encrypt.cert.gen.BCCertGenerator;
 
 /**
- * 类AQClass3CaCreator.java的实现描述：ca构造器
+ * 类AQClass1CaCreator.java的实现描述：ca构造器
  * 
  * @author madding.lip Dec 6, 2013 9:23:41 PM
  */
-public class AQClass3CaCreator extends AQMain {
+public class AQClass1CaMain extends AQMain {
 
     public static void main(String[] args) throws Exception {
         // createNewChain();
         createNewChainWithCa(ROOT_CA);
-
-        readByKeyStore(CLASS3_CA + P12_SUFFIX, X500NameUtil.DN_CLASS3_ROOT_CN);
+        
+        readByKeyStore(CLASS1_CA + P12_SUFFIX, X500NameUtil.DN_CLASS1_ROOT_CN);
     }
 
     protected static void createExistChain() throws Exception {
 
-        X509Certificate pCert = CaCertLoader.getCaCert();
-        KeyPair pKeyPair = CaCertLoader.getCaKeyPair();
+        X509Certificate pCert = CaCertLoader.getRootCaCert();
+        KeyPair pKeyPair = CaCertLoader.getRootCaKeyPair();
 
-        KeyPair keyPair = CaCertLoader.getClass3CaKeyPair();
-
-        X509Certificate clientCaCert = BCCertGenerator.getIns().createClass3CaCert(keyPair.getPublic(), pKeyPair);
-        X509Certificate[] clientCaChain = new X509Certificate[3];
-        clientCaChain[0] = clientCaCert;
-        clientCaChain[1] = pCert;
-
-        FileOutputStream oStream = new FileOutputStream(new File(CLASS3_CA));
-        PKCSWriter.storePKCS12File(clientCaChain, keyPair.getPrivate(), USER_CERT_PASSWD, oStream);
-        oStream.close();
-        System.out.println("mad class 3 root created end....");
-    }
-
-    protected static void createNewChain() throws Exception {
-
-        X509Certificate pCert = CaCertLoader.getCaCert();
-        KeyPair pKeyPair = CaCertLoader.getCaKeyPair(USER_CERT_PASSWD);
-
-        KeyPair keyPair = KeyPairUtil.generateRSAKeyPair(1024);
-
-        X509Certificate middleCert = BCCertGenerator.getIns().createClass3CaCert(keyPair.getPublic(), pKeyPair);
+        PublicKey publicKey = CaCertLoader.getClass1CaKeyPair().getPublic();
+        X509Certificate middleCert = CertGenerator.getIns().createClass1CaCert(publicKey, pKeyPair);
         X509Certificate[] chain = new X509Certificate[2];
         chain[0] = middleCert;
         chain[1] = pCert;
 
-        FileOutputStream ostream = new FileOutputStream(new File(CLASS3_CA + CRT_SUFFIX));
+        FileOutputStream oStream = new FileOutputStream(new File(CLASS1_CA + P12_SUFFIX));
+        PKCSWriter.storePKCS12File(chain, pKeyPair.getPrivate(), USER_CERT_PASSWD, oStream);
+        oStream.close();
+        System.out.println("mad server ca created end....");
+    }
+
+    protected static void createNewChain() throws Exception {
+
+        X509Certificate pCert = CaCertLoader.getRootCaCert();
+        KeyPair pKeyPair = CaCertLoader.getRootCaKeyPair(USER_CERT_PASSWD);
+
+        KeyPair keyPair = KeyPairUtil.generateRSAKeyPair(1024);
+
+        X509Certificate middleCert = CertGenerator.getIns().createClass1CaCert(keyPair.getPublic(), pKeyPair);
+        X509Certificate[] chain = new X509Certificate[2];
+        chain[0] = middleCert;
+        chain[1] = pCert;
+
+        FileOutputStream ostream = new FileOutputStream(new File(CLASS1_CA + PEMCERT_SUFFIX));
         PKCSWriter.storeCertFile(middleCert, ostream);
+        
+        ostream = new FileOutputStream(new File(CLASS1_CA + PEMKEY_SUFFIX));
+        PKCSWriter.storeKeyFile(keyPair.getPrivate(), ostream, USER_CERT_PASSWD);
 
-        ostream = new FileOutputStream(new File(CLASS3_CA + KEY_SUFFIX));
-        PKCSWriter.storeKeyFile(keyPair, ostream, USER_CERT_PASSWD);
-
-        ostream = new FileOutputStream(new File(CLASS3_CA + P12_SUFFIX));
+        ostream = new FileOutputStream(new File(CLASS1_CA + P12_SUFFIX));
         PKCSWriter.storePKCS12File(chain, keyPair.getPrivate(), USER_CERT_PASSWD, ostream);
         ostream.close();
 
-        System.out.println("mad class 3 root created end....");
+        System.out.println("mad server ca created end....");
     }
 
     protected static void createNewChainWithCa(String cafilepath) throws Exception {
@@ -88,18 +88,18 @@ public class AQClass3CaCreator extends AQMain {
         KeyPair pKeyPair = PKCSReader.readKeyPair(iskey, USER_CERT_PASSWD);
 
         KeyPair keyPair = KeyPairUtil.generateRSAKeyPair(1024);
-        X509Certificate middleCert = BCCertGenerator.getIns().createClass3CaCert(keyPair.getPublic(), pKeyPair);
+        X509Certificate middleCert = CertGenerator.getIns().createClass1CaCert(keyPair.getPublic(), pKeyPair);
         X509Certificate[] chain = new X509Certificate[2];
         chain[0] = middleCert;
         chain[1] = pCert;
 
-        FileOutputStream ostream = new FileOutputStream(new File(CLASS3_CA + PEMCERT_SUFFIX));
+        FileOutputStream ostream = new FileOutputStream(new File(CLASS1_CA + PEMCERT_SUFFIX));
         PKCSWriter.storeCertFile(middleCert, ostream);
-
-        ostream = new FileOutputStream(new File(CLASS3_CA + PEMKEY_SUFFIX));
+        
+        ostream = new FileOutputStream(new File(CLASS1_CA + PEMKEY_SUFFIX));
         PKCSWriter.storeKeyFile(keyPair, ostream, USER_CERT_PASSWD);
 
-        ostream = new FileOutputStream(new File(CLASS3_CA + P12_SUFFIX));
+        ostream = new FileOutputStream(new File(CLASS1_CA + P12_SUFFIX));
         PKCSWriter.storePKCS12File(chain, keyPair.getPrivate(), USER_CERT_PASSWD, ostream);
         ostream.close();
 

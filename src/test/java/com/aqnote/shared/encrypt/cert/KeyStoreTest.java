@@ -8,7 +8,7 @@ import java.security.PrivateKey;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 
-import com.aqnote.shared.encrypt.cert.gen.BCCertGenerator;
+import com.aqnote.shared.encrypt.cert.bc.gen.CertGenerator;
 
 public class KeyStoreTest {
 	
@@ -29,7 +29,7 @@ public class KeyStoreTest {
 			KeyPair keyPair = keyPairGenerator.generateKeyPair();
 			PrivateKey key = keyPair.getPrivate();
 			
-			X509Certificate cert = BCCertGenerator.getIns().createRootCaCert(keyPair);
+			X509Certificate cert = CertGenerator.getIns().createRootCaCert(keyPair);
 			Certificate[] chain = new X509Certificate[1];
 			chain[0] = cert;
 			

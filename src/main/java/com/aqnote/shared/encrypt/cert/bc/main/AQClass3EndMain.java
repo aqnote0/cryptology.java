@@ -6,7 +6,7 @@
  * either express or implied. See the License for the specific language governing permissions and limitations under the
  * License.
  */
-package com.aqnote.shared.encrypt.cert.main.bc;
+package com.aqnote.shared.encrypt.cert.bc.main;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,18 +21,18 @@ import org.bouncycastle.asn1.x500.X500Name;
 import com.aqnote.shared.encrypt.cert.BCCertSystem;
 import com.aqnote.shared.encrypt.cert.bc.cover.PKCSReader;
 import com.aqnote.shared.encrypt.cert.bc.cover.PKCSWriter;
+import com.aqnote.shared.encrypt.cert.bc.gen.CertGenerator;
 import com.aqnote.shared.encrypt.cert.bc.loader.CaCertLoader;
 import com.aqnote.shared.encrypt.cert.bc.util.KeyPairUtil;
 import com.aqnote.shared.encrypt.cert.bc.util.X500NameUtil;
-import com.aqnote.shared.encrypt.cert.dataobject.MadCertDo;
-import com.aqnote.shared.encrypt.cert.gen.BCCertGenerator;
+import com.aqnote.shared.encrypt.cert.dataobject.AQCertDo;
 
 /**
  * 类AQClass3EndCreator.java的实现描述：证书构造器
  * 
  * @author madding.lip Dec 6, 2013 9:23:41 PM
  */
-public class AQClass3EndCreator extends AQMain {
+public class AQClass3EndMain extends AQMain {
 
     public static final String CLASS3_END_EMPNO = CERT_DIR + "/aqnote_class3end";
 
@@ -50,7 +50,7 @@ public class AQClass3EndCreator extends AQMain {
         String cn = subjectAltName;
         String email = "madding.lip@gmail.com";
         String title = "p1|p2|p3";
-        MadCertDo tdPureCertDo = BCCertSystem.issueClientCert(-1, subjectAltName, cn, email, title,
+        AQCertDo tdPureCertDo = BCCertSystem.issueClientCert(-1, subjectAltName, cn, email, title,
                                                               new HashMap<String, String>(), USER_CERT_PASSWD);
         System.out.println(tdPureCertDo.getP12File());
     }
@@ -66,11 +66,11 @@ public class AQClass3EndCreator extends AQMain {
         
         KeyPair keyPair = KeyPairUtil.generateRSAKeyPair(1024);
 
-        X509Certificate endCert = BCCertGenerator.getIns().createClass3EndCert(subject, keyPair.getPublic(), pKeyPair);
+        X509Certificate endCert = CertGenerator.getIns().createClass3EndCert(subject, keyPair.getPublic(), pKeyPair);
         X509Certificate[] chain = new X509Certificate[3];
         chain[0] = endCert;
         chain[1] = CaCertLoader.getClass3CaCert();
-        chain[2] = CaCertLoader.getCaCert();
+        chain[2] = CaCertLoader.getRootCaCert();
 
         FileOutputStream oStream = new FileOutputStream(new File(CLASS3_END_EMPNO + P12_SUFFIX));
         PKCSWriter.storePKCS12File(chain, keyPair.getPrivate(), USER_CERT_PASSWD, oStream);
@@ -96,7 +96,7 @@ public class AQClass3EndCreator extends AQMain {
         X500Name subject = X500NameUtil.createClass3EndPrincipal(cn, email, title);
         
         KeyPair keyPair = KeyPairUtil.generateRSAKeyPair(1024);
-        X509Certificate endCert = BCCertGenerator.getIns().createClass3EndCert(subject, keyPair.getPublic(), pKeyPair);
+        X509Certificate endCert = CertGenerator.getIns().createClass3EndCert(subject, keyPair.getPublic(), pKeyPair);
         chain[0] = endCert;
 
         FileOutputStream ostream = new FileOutputStream(new File(CLASS3_END_EMPNO + PEMKEY_SUFFIX));

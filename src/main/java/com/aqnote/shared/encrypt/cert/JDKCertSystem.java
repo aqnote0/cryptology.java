@@ -1,20 +1,12 @@
 /*
- * Copyright 2013-2023 Peng Li <madding.lip@gmail.com>
- * Licensed under the AQNote License, Version 1.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.aqnote.com/licenses/LICENSE-1.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Copyright 2013-2023 Peng Li <madding.lip@gmail.com> Licensed under the AQNote License, Version 1.0 (the "License");
+ * you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ * http://www.aqnote.com/licenses/LICENSE-1.0 Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied. See the License for the specific language governing permissions and limitations under the
+ * License.
  */
 package com.aqnote.shared.encrypt.cert;
-
-import static com.aqnote.shared.encrypt.cert.gen.JDKCertGenerator.getIns;
 
 import java.io.IOException;
 import java.security.Key;
@@ -28,8 +20,9 @@ import java.security.cert.CertificateEncodingException;
 import java.security.cert.X509Certificate;
 import java.util.List;
 
-import com.aqnote.shared.encrypt.cert.dataobject.MadCertDo;
+import com.aqnote.shared.encrypt.cert.dataobject.AQCertDo;
 import com.aqnote.shared.encrypt.cert.exception.CertException;
+import com.aqnote.shared.encrypt.cert.jdk.gen.CertGenerator;
 import com.aqnote.shared.encrypt.cert.jdk.loader.CaCertLoader;
 import com.aqnote.shared.encrypt.cert.jdk.tool.PrivateKeyTool;
 import com.aqnote.shared.encrypt.cert.jdk.tool.X509CertTool;
@@ -47,7 +40,8 @@ import sun.security.x509.X500Name;
 public class JDKCertSystem {
 
     // 颁发证书
-    public static MadCertDo issueClientCert(String alias, String cn, String email, List<String> extList, char[] pwd) throws CertException {
+    public static AQCertDo issueClientCert(String alias, String cn, String email, List<String> extList,
+                                            char[] pwd) throws CertException {
 
         try {
             CertificateExtensions exts = null;
@@ -63,8 +57,8 @@ public class JDKCertSystem {
             }
 
             X500Name subject = X500NameUtil.getSubjectName(cn, email);
-            PrivateKey caPrivKey = CaCertLoader.getCaKey();
-            KeyStore keyStore = getIns().issueClientCert(subject, exts, alias, pwd, caPrivKey);
+            PrivateKey caPrivKey = CaCertLoader.getRootCaKey();
+            KeyStore keyStore = CertGenerator.getIns().issueClientCert(subject, exts, alias, pwd, caPrivKey);
 
             return createTDPureCertDo(alias, keyStore, pwd);
         } catch (IOException e) {
@@ -72,9 +66,9 @@ public class JDKCertSystem {
         }
     }
 
-    public static MadCertDo createTDPureCertDo(String alias, KeyStore keyStore, char[] passwd) throws CertException {
+    public static AQCertDo createTDPureCertDo(String alias, KeyStore keyStore, char[] passwd) throws CertException {
 
-        MadCertDo tdPureCertDo = new MadCertDo();
+        AQCertDo tdPureCertDo = new AQCertDo();
         try {
             // set crt file
             Certificate cert = keyStore.getCertificate(alias);

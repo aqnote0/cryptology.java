@@ -22,7 +22,7 @@ import java.util.Date;
  * 
  * @author madding.lip Jun 24, 2014 10:02:55 AM
  */
-public class MadCertificateObject implements Serializable {
+public class AQCertificateObject implements Serializable {
 
     private static final long serialVersionUID = -5486895676890418948L;
 

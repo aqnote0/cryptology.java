@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.aqnote.shared.encrypt.cert.main.bc;
+package com.aqnote.shared.encrypt.cert.bc.main;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -43,7 +43,7 @@ import com.aqnote.shared.encrypt.cert.exception.CertException;
  * 
  * @author madding.lip Dec 6, 2013 9:23:41 PM
  */
-public class AQCRLCreator implements BCConstant {
+public class AQCRLMain implements BCConstant {
 
     public static String MAD_CRL_FILE = "/home/madding/output/aqnote.crl";
 
@@ -56,7 +56,7 @@ public class AQCRLCreator implements BCConstant {
         try {
             X509v2CRLBuilder crlBuilder = new X509v2CRLBuilder(X500NameUtil.createRootCaPrincipal(), new Date());
             crlBuilder.setNextUpdate(new Date(System.currentTimeMillis() + DateConstant.ONE_YEAR));
-            X509CRLHolder crlHolder = crlBuilder.build(new JcaContentSignerBuilder(SHA256_RSA).setProvider(JCE_PROVIDER).build(CaCertLoader.getCaKeyPair().getPrivate()));
+            X509CRLHolder crlHolder = crlBuilder.build(new JcaContentSignerBuilder(SHA256_RSA).setProvider(JCE_PROVIDER).build(CaCertLoader.getRootCaKeyPair().getPrivate()));
             X509CRL crl = new JcaX509CRLConverter().setProvider(JCE_PROVIDER).getCRL(crlHolder);
             FileOutputStream fostream = new FileOutputStream(MAD_CRL_FILE);
             PKCSWriter.storeCRLFile(crl, fostream);
