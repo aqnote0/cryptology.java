@@ -1,4 +1,4 @@
-package com.aqnote.shared.encrypt.misc.cwguide;
+package cwguide;
 
 import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.crypto.params.AsymmetricKeyParameter;

@@ -1,4 +1,4 @@
-package com.aqnote.shared.encrypt.misc.cwguide;
+package cwguide;
 
 import static com.aqnote.shared.encrypt.cert.bc.constant.BCConstant.JCE_PROVIDER;
 

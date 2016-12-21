@@ -1,4 +1,4 @@
-package com.aqnote.shared.encrypt.misc.cwguide;
+package cwguide;
 
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
