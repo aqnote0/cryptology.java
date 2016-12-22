@@ -40,7 +40,7 @@ public class AES {
     private static Cipher       decodeCipher;
 
     static {
-        ProviderUtil.addBCProviderFirst();
+        ProviderUtil.addBCProvider();
         // key size: 16 24 32
         generateCipher("www.aqnote.com/1");
     }
