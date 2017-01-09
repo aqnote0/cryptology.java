@@ -13,7 +13,7 @@ package com.aqnote.shared.encrypt.util.log;
  * 
  * @author madding.lip Nov 25, 2013 2:17:28 PM
  */
-public class LogAgg {
+public class Log {
 
     public static enum R {
                           F, T;

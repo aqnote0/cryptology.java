@@ -14,7 +14,7 @@
  */
 package com.aqnote.shared.encrypt.cert.bc.cover;
 
-import static com.aqnote.shared.encrypt.util.log.LogAgg.MSG;
+import static com.aqnote.shared.encrypt.util.log.Log.MSG;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -48,7 +48,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.aqnote.shared.encrypt.cert.bc.constant.BCConstant;
-import com.aqnote.shared.encrypt.util.log.LogAgg.R;
+import com.aqnote.shared.encrypt.util.log.Log.R;
 
 /**
  * 类PKCSReader.java的实现描述：pkcs读取工具类
