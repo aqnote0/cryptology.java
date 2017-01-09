@@ -31,7 +31,7 @@ import org.bouncycastle.jcajce.provider.digest.SHA3.DigestSHA3;
 import org.bouncycastle.jcajce.provider.digest.SHA384;
 import org.bouncycastle.jcajce.provider.digest.SHA512;
 
-import com.aqnote.shared.encrypt.ProviderUtil;
+import com.aqnote.shared.encrypt.AQProviderUtil;
 import com.aqnote.shared.encrypt.util.lang.ByteUtil;
 
 /**
@@ -56,7 +56,7 @@ public class SHA {
 	private static final String OID_SHA2_512_256 = NISTObjectIdentifiers.id_sha512_256.toString();
 
 	static {
-		ProviderUtil.addBCProvider();
+		AQProviderUtil.addBCProvider();
 	}
 
 	////// SHA1 ////////////////////////////////////////////////////

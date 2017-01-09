@@ -27,7 +27,7 @@ import org.bouncycastle.jcajce.provider.digest.MD2;
 import org.bouncycastle.jcajce.provider.digest.MD4;
 import org.bouncycastle.jcajce.provider.digest.MD5;
 
-import com.aqnote.shared.encrypt.ProviderUtil;
+import com.aqnote.shared.encrypt.AQProviderUtil;
 import com.aqnote.shared.encrypt.util.lang.ByteUtil;
 
 /**
@@ -44,7 +44,7 @@ public class MD {
     private static final String OID_MD5         = PKCSObjectIdentifiers.md5.toString();
 
     static {
-        ProviderUtil.addBCProvider();
+        AQProviderUtil.addBCProvider();
     }
 
     public final static String md2(String src) {

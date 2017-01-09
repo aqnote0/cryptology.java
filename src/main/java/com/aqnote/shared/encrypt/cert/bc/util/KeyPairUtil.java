@@ -20,14 +20,14 @@ import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
 
-import com.aqnote.shared.encrypt.ProviderUtil;
+import com.aqnote.shared.encrypt.AQProviderUtil;
 import com.aqnote.shared.encrypt.cert.bc.constant.BCConstant;
 import com.aqnote.shared.encrypt.cert.exception.CertException;
 
 public class KeyPairUtil implements BCConstant {
     
     static {
-        ProviderUtil.addBCProvider();
+        AQProviderUtil.addBCProvider();
     }
 
     /**

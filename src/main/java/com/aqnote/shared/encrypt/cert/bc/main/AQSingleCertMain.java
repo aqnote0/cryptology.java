@@ -22,7 +22,7 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Date;
 
-import com.aqnote.shared.encrypt.ProviderUtil;
+import com.aqnote.shared.encrypt.AQProviderUtil;
 import com.aqnote.shared.encrypt.cert.bc.util.KeyPairUtil;
 import com.aqnote.shared.encrypt.cert.dataobject.AQCertificateObject;
 import com.aqnote.shared.encrypt.cert.exception.CertException;
@@ -43,7 +43,7 @@ public class AQSingleCertMain {
     public static final String SUBJECT_Pattern    = "C=CN,  ST=ZheJiang,  L=HangZhou,  O=Mad,  OU=Inc,  CN={0},  Email={1}";
 
     static {
-        ProviderUtil.addBCProvider();
+        AQProviderUtil.addBCProvider();
     }
 
     public static void create() throws CertException {

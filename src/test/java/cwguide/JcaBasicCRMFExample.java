@@ -14,7 +14,7 @@ import org.bouncycastle.cert.crmf.jcajce.JcaCertificateRequestMessageBuilder;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 import org.bouncycastle.operator.jcajce.JcaContentVerifierProviderBuilder;
 
-import com.aqnote.shared.encrypt.ProviderUtil;
+import com.aqnote.shared.encrypt.AQProviderUtil;
 
 /**
  * Basic example of CRMF using a signature for proof-of-possession
@@ -24,7 +24,7 @@ public class JcaBasicCRMFExample
     public static void main(String[] args)
         throws Exception
     {
-        ProviderUtil.addBCProvider();
+        AQProviderUtil.addBCProvider();
 
         KeyPairGenerator kGen = KeyPairGenerator.getInstance("RSA", JCE_PROVIDER);
 

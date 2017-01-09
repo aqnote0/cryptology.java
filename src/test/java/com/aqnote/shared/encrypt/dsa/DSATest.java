@@ -21,7 +21,7 @@ import java.io.InputStream;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.aqnote.shared.encrypt.asymmetric.dsa.DSA;
+import com.aqnote.shared.encrypt.asymmetric.DSA;
 import com.aqnote.shared.encrypt.util.lang.StreamUtil;
 
 import junit.framework.TestCase;

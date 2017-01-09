@@ -16,7 +16,7 @@ import java.security.cert.X509Certificate;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.aqnote.shared.encrypt.ProviderUtil;
+import com.aqnote.shared.encrypt.AQProviderUtil;
 import com.aqnote.shared.encrypt.cert.bc.cover.PKCSReader;
 import com.aqnote.shared.encrypt.util.lang.ClassLoaderUtil;
 import com.aqnote.shared.encrypt.util.lang.StreamUtil;
@@ -29,7 +29,7 @@ import com.aqnote.shared.encrypt.util.lang.StreamUtil;
 public class CaCertLoader {
 
     static {
-        ProviderUtil.addBCProvider();
+        AQProviderUtil.addBCProvider();
     }
 
     private static final String    CA_Cert_FILE         = "META-INF/aqnote/root_ca_cert.pem";

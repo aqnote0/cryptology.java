@@ -16,7 +16,7 @@ import java.security.cert.X509Certificate;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 
-import com.aqnote.shared.encrypt.ProviderUtil;
+import com.aqnote.shared.encrypt.AQProviderUtil;
 import com.aqnote.shared.encrypt.cert.bc.constant.BCConstant;
 import com.aqnote.shared.encrypt.cert.bc.cover.PKCSReader;
 import com.aqnote.shared.encrypt.cert.bc.cover.PKCSWriter;
@@ -36,7 +36,7 @@ public class AQPKCS10Main implements BCConstant {
     public static final String MAD_CLASS1_END_VPN = "/home/madding/output/aqnote_class1_end_vpn_csr_1";
 
     static {
-        ProviderUtil.addBCProvider();
+        AQProviderUtil.addBCProvider();
     }
 
     public static void main(String[] args) throws Exception {

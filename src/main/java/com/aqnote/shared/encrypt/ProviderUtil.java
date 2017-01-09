@@ -12,44 +12,13 @@ import java.security.Provider;
 import java.security.Security;
 
 import org.apache.commons.lang.StringUtils;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-
-import com.aqnote.shared.encrypt.cert.bc.constant.BCConstant;
 
 /**
- * Provider.java desc：TODO
+ * ProviderUtils.java desc：TODO
  * 
- * @author madding.lip Dec 23, 2015 5:42:52 PM
+ * @author madding.lip Jan 9, 2017 10:22:24 AM
  */
 public class ProviderUtil {
-
-    public static void addBCProvider() {
-        Provider bcProvider = Security.getProvider(BCConstant.JCE_PROVIDER);
-        if (bcProvider == null) {
-            Security.insertProviderAt(new BouncyCastleProvider(), 1);
-        }
-    }
-
-    public static void resetToBCProvider() {
-        removeAllProvider();
-        Provider bcProvider = Security.getProvider(BCConstant.JCE_PROVIDER);
-        if (bcProvider == null) {
-            Security.insertProviderAt(new BouncyCastleProvider(), 1);
-        }
-    }
-
-    public static void resetToOpenJDKProviders() throws Exception {
-        removeAllProvider();
-        addProvider("com.sun.net.ssl.internal.ssl.Provider");
-        addProvider("com.sun.crypto.provider.SunJCE");
-        addProvider("com.sun.security.sasl.Provider");
-        addProvider("org.jcp.xml.dsig.internal.dom.XMLDSigRI");
-        addProvider("sun.security.ec.SunEC");
-        addProvider("sun.security.jgss.SunProvider");
-        addProvider("sun.security.provider.Sun");
-        addProvider("sun.security.rsa.SunRsaSign");
-        addProvider("sun.security.smartcardio.SunPCSC");
-    }
 
     public static void resetToProvider(Provider provider) {
         removeAllProvider();

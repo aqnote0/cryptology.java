@@ -23,7 +23,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 
-import com.aqnote.shared.encrypt.ProviderUtil;
+import com.aqnote.shared.encrypt.AQProviderUtil;
 
 /**
  * 类AESEncrypt.java的实现描述：AES加密类
@@ -40,7 +40,7 @@ public class AES {
     private static Cipher       decodeCipher;
 
     static {
-        ProviderUtil.addBCProvider();
+        AQProviderUtil.addBCProvider();
         // key size: 16 24 32
         generateCipher("www.aqnote.com/1");
     }

@@ -20,7 +20,7 @@ import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.bouncycastle.pkcs.PKCS10CertificationRequestBuilder;
 import org.bouncycastle.pkcs.jcajce.JcaPKCS10CertificationRequestBuilder;
 
-import com.aqnote.shared.encrypt.ProviderUtil;
+import com.aqnote.shared.encrypt.AQProviderUtil;
 
 /**
  * A simple example showing generation and verification of a PKCS#10 request.
@@ -30,7 +30,7 @@ public class JcaPKCS10Example
     public static void main(String[] args)
             throws Exception
     {
-        ProviderUtil.addBCProvider();
+        AQProviderUtil.addBCProvider();
 
         String sigName = ALG_SIG_SHA256_RSA;
 

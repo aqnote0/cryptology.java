@@ -59,7 +59,7 @@ import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.bouncycastle.pkcs.PKCS10CertificationRequestBuilder;
 import org.bouncycastle.pkcs.jcajce.JcaPKCS10CertificationRequestBuilder;
 
-import com.aqnote.shared.encrypt.ProviderUtil;
+import com.aqnote.shared.encrypt.AQProviderUtil;
 import com.aqnote.shared.encrypt.cert.bc.constant.BCConstant;
 import com.aqnote.shared.encrypt.cert.bc.constant.CertConstant;
 import com.aqnote.shared.encrypt.cert.bc.constant.DateConstant;
@@ -86,7 +86,7 @@ public class CertGenerator implements BCConstant {
     protected static int                        END_KEY_USAGE   = KeyUsage.digitalSignature | KeyUsage.keyEncipherment;
 
     static {
-        ProviderUtil.addBCProvider();
+        AQProviderUtil.addBCProvider();
 
         BASE_EKU[0] = KeyPurposeId.id_kp_clientAuth;
         BASE_EKU[1] = KeyPurposeId.id_kp_serverAuth;

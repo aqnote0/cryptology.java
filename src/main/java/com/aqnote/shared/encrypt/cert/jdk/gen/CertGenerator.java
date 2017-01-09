@@ -22,7 +22,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Date;
 
-import com.aqnote.shared.encrypt.ProviderUtil;
+import com.aqnote.shared.encrypt.AQProviderUtil;
 import com.aqnote.shared.encrypt.cert.exception.CertException;
 import com.aqnote.shared.encrypt.cert.jdk.tool.X509CertTool;
 import com.aqnote.shared.encrypt.cert.jdk.util.KeyStoreUtil;
@@ -57,7 +57,7 @@ public class CertGenerator {
     private static ThreadLocal<CertGenerator> threadlocal        = new ThreadLocal<CertGenerator>();
 
     static {
-        ProviderUtil.addBCProvider();
+        AQProviderUtil.addBCProvider();
     }
 
     public static CertGenerator getIns() {

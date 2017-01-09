@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.aqnote.shared.encrypt.asymmetric.rsa;
+package com.aqnote.shared.encrypt.asymmetric;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -26,7 +26,7 @@ import java.util.Map;
 import org.bouncycastle.jcajce.provider.asymmetric.rsa.KeyPairGeneratorSpi;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
-import com.aqnote.shared.encrypt.ProviderUtil;
+import com.aqnote.shared.encrypt.AQProviderUtil;
 
 /**
  * RSA.java desc：TODO
@@ -41,7 +41,7 @@ public class RSA {
     private Map<String, KeyPair> keyPairs     = new HashMap<String, KeyPair>();
 
     static {
-        ProviderUtil.addBCProvider();
+        AQProviderUtil.addBCProvider();
     }
 
     public static KeyPair genKeyPair(int bit) {

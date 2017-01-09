@@ -24,7 +24,7 @@ import java.util.Enumeration;
 
 import javax.crypto.Cipher;
 
-import com.aqnote.shared.encrypt.ProviderUtil;
+import com.aqnote.shared.encrypt.AQProviderUtil;
 
 /**
  * AQMain.java desc：TODO 
@@ -33,7 +33,7 @@ import com.aqnote.shared.encrypt.ProviderUtil;
 public class AQMain implements MainConstant {
 
     static {
-        ProviderUtil.addBCProvider();
+        AQProviderUtil.addBCProvider();
     }
     
     protected static void readByKeyStore(String ca, String keyPairAlias) throws Exception {

@@ -25,7 +25,7 @@ import org.apache.commons.lang.StringUtils;
 import org.bouncycastle.jcajce.provider.digest.SM3;
 import org.bouncycastle.util.encoders.Hex;
 
-import com.aqnote.shared.encrypt.ProviderUtil;
+import com.aqnote.shared.encrypt.AQProviderUtil;
 
 /**
  * SM.java 
@@ -39,7 +39,7 @@ public class SM {
     private static final String OID_SM3 = "1.2.156.197.1.401";
     
     static {
-        ProviderUtil.addBCProvider();
+        AQProviderUtil.addBCProvider();
     }
     
     public final static String sm3(String src) {

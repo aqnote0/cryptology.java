@@ -46,7 +46,7 @@ import org.bouncycastle.pkcs.jcajce.JcePKCSPBEInputDecryptorProviderBuilder;
 import org.bouncycastle.pkcs.jcajce.JcePKCSPBEOutputEncryptorBuilder;
 import org.bouncycastle.util.io.Streams;
 
-import com.aqnote.shared.encrypt.ProviderUtil;
+import com.aqnote.shared.encrypt.AQProviderUtil;
 
 public class JcePKCS12Example
 {
@@ -54,7 +54,7 @@ public class JcePKCS12Example
     public static void main(String[] args)
         throws Exception
     {
-        ProviderUtil.addBCProvider();
+        AQProviderUtil.addBCProvider();
 
         KeyStore credentials = JcaUtils.createCredentials();
         PrivateKey key = (PrivateKey)credentials.getKey(JcaUtils.END_ENTITY_ALIAS, JcaUtils.KEY_PASSWD);

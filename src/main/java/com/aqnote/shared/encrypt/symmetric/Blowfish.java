@@ -28,7 +28,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.lang.StringUtils;
 
-import com.aqnote.shared.encrypt.ProviderUtil;
+import com.aqnote.shared.encrypt.AQProviderUtil;
 
 /**
  * 类Blowfish.java的实现描述：
@@ -54,7 +54,7 @@ public class Blowfish {
     private Cipher                 decryptCipher   = null;
 
     static {
-        ProviderUtil.addBCProvider();
+        AQProviderUtil.addBCProvider();
     }
 
     public Blowfish(String keySpec, byte[] paramSpec){

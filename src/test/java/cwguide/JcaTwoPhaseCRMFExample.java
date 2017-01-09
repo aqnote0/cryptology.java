@@ -12,7 +12,7 @@ import org.bouncycastle.asn1.crmf.SubsequentMessage;
 import org.bouncycastle.cert.crmf.jcajce.JcaCertificateRequestMessage;
 import org.bouncycastle.cert.crmf.jcajce.JcaCertificateRequestMessageBuilder;
 
-import com.aqnote.shared.encrypt.ProviderUtil;
+import com.aqnote.shared.encrypt.AQProviderUtil;
 
 /**
  * Basic example of CRMF which tells a CA to send the certificate back encrypted.
@@ -22,7 +22,7 @@ public class JcaTwoPhaseCRMFExample
     public static void main(String[] args)
         throws Exception
     {
-        ProviderUtil.addBCProvider();
+        AQProviderUtil.addBCProvider();
 
         KeyPairGenerator kGen = KeyPairGenerator.getInstance("RSA", JCE_PROVIDER);
 

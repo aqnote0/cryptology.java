@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.aqnote.shared.encrypt.asymmetric.dsa;
+package com.aqnote.shared.encrypt.asymmetric;
 
 import static com.aqnote.shared.encrypt.util.lang.ByteUtil.toHexString;
 
