@@ -14,18 +14,15 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.security.KeyPair;
 import java.security.cert.X509Certificate;
-import java.util.HashMap;
 
 import org.bouncycastle.asn1.x500.X500Name;
 
-import com.aqnote.shared.encrypt.cert.BCCertSystem;
 import com.aqnote.shared.encrypt.cert.bc.cover.PKCSReader;
 import com.aqnote.shared.encrypt.cert.bc.cover.PKCSWriter;
 import com.aqnote.shared.encrypt.cert.bc.gen.CertGenerator;
 import com.aqnote.shared.encrypt.cert.bc.loader.CaCertLoader;
 import com.aqnote.shared.encrypt.cert.bc.util.KeyPairUtil;
 import com.aqnote.shared.encrypt.cert.bc.util.X500NameUtil;
-import com.aqnote.shared.encrypt.cert.dataobject.AQCertDo;
 
 /**
  * 类AQClass3EndCreator.java的实现描述：证书构造器
@@ -42,17 +39,6 @@ public class AQClass3EndMain extends AQMain {
         createNewRadiusWithCA(new String[] { CLASS3_CA, ROOT_CA });
 
         readByKeyStore(CLASS3_END_EMPNO + P12_SUFFIX, "test");
-    }
-
-    protected static void writeString() throws Exception {
-
-        String subjectAltName = "madding.lip";
-        String cn = subjectAltName;
-        String email = "madding.lip@gmail.com";
-        String title = "p1|p2|p3";
-        AQCertDo tdPureCertDo = BCCertSystem.issueClientCert(-1, subjectAltName, cn, email, title,
-                                                              new HashMap<String, String>(), USER_CERT_PASSWD);
-        System.out.println(tdPureCertDo.getP12File());
     }
 
     protected static void writeFile() throws Exception {
