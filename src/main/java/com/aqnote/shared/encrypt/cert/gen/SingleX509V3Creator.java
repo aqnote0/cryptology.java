@@ -35,7 +35,7 @@ import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 
 import com.aqnote.shared.encrypt.cert.bc.constant.BCConstant;
-import com.aqnote.shared.encrypt.cert.dataobject.AQCertificateObject;
+import com.aqnote.shared.encrypt.cert.dataobject.CertificateObject;
 import com.aqnote.shared.encrypt.cert.exception.CertException;
 
 /**
@@ -45,7 +45,7 @@ import com.aqnote.shared.encrypt.cert.exception.CertException;
  */
 public class SingleX509V3Creator implements BCConstant {
 
-    public static X509Certificate generate(AQCertificateObject certObject, KeyPair keyPair) throws CertException {
+    public static X509Certificate generate(CertificateObject certObject, KeyPair keyPair) throws CertException {
 
         try {
             X509v3CertificateBuilder certBuilder = new JcaX509v3CertificateBuilder(

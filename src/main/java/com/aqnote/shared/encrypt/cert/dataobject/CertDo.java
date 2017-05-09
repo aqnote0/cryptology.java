@@ -18,7 +18,7 @@ import com.alibaba.fastjson.JSON;
  * 
  * @author madding.lip Nov 17, 2013 10:59:28 PM
  */
-public class AQCertDo implements Serializable {
+public class CertDo implements Serializable {
 
     private static final long serialVersionUID = 815492566333086681L;
 

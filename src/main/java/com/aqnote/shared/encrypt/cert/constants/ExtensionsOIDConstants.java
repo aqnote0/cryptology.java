@@ -13,7 +13,7 @@ package com.aqnote.shared.encrypt.cert.constants;
  * 
  * @author madding.lip Nov 19, 2013 4:16:09 PM
  */
-public class AQExtensionsOIDConstants {
+public class ExtensionsOIDConstants {
 
     public static final String PREFIX              = "1.1.1.1.2.";
 

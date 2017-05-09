@@ -24,7 +24,7 @@ import java.util.Date;
 
 import com.aqnote.shared.encrypt.AQProviderUtil;
 import com.aqnote.shared.encrypt.cert.bc.util.KeyPairUtil;
-import com.aqnote.shared.encrypt.cert.dataobject.AQCertificateObject;
+import com.aqnote.shared.encrypt.cert.dataobject.CertificateObject;
 import com.aqnote.shared.encrypt.cert.exception.CertException;
 import com.aqnote.shared.encrypt.cert.gen.SingleX509V1Creator;
 import com.aqnote.shared.encrypt.util.lang.MessageUtil;
@@ -52,7 +52,7 @@ public class AQSingleCertMain {
         // create the input stream
         ByteArrayOutputStream bOut = new ByteArrayOutputStream();
 
-        AQCertificateObject certObject = new AQCertificateObject();
+        CertificateObject certObject = new CertificateObject();
         certObject.setNotBefore(new Date(System.currentTimeMillis()));
         certObject.setNotAfter(new Date(System.currentTimeMillis() + ROOT_CERT_INDATE));
         String subject = MessageUtil.formatMessage(SUBJECT_Pattern, "madding.lip", "madding.lip@gmail.com");
