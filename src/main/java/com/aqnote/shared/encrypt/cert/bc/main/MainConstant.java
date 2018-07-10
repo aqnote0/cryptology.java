@@ -17,7 +17,7 @@ import com.aqnote.shared.encrypt.cert.bc.constant.BCConstant;
  */
 public interface MainConstant extends BCConstant {
 
-    public static String       CERT_DIR       = "/Users/madding/logs/certificate";
+    public static final String CERT_DIR       = "/Users/aqnote/logs/certificate";
     // CA
     public static final String ROOT_CA        = CERT_DIR + "/aqnote_rootca";
     // Server CA

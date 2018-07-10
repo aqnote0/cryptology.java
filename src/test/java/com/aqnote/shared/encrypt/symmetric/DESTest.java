@@ -12,25 +12,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.aqnote.shared.encrypt;
-
-import java.io.UnsupportedEncodingException;
+package com.aqnote.shared.encrypt.symmetric;
 
 import org.junit.Assert;
 
-import com.aqnote.shared.encrypt.symmetric.AES;
+import com.aqnote.shared.encrypt.symmetric.DES;
 
 import junit.framework.TestCase;
 
 /**
- * 类AESTest.java的实现描述：AES算法测试类
+ * 类DesEncryptTest.java的实现描述：DESEncrypt单元测试类
  * 
- * @author madding.lip May 8, 2012 1:13:16 PM
+ * @author madding.lip May 7, 2012 3:04:12 PM
  */
-public class AESTest extends TestCase {
+public class DESTest extends TestCase {
 
-    public void test() throws UnsupportedEncodingException, RuntimeException {
-        System.out.println(AES.encrypt("testlip"));
-        Assert.assertEquals(AES.decrypt(AES.encrypt("testlip")), "testlip");
+    public void testDESEncrypt() {
+        System.out.println(DES.encrypt("testlip"));
+        Assert.assertEquals("d8d6ec9dee9c7f8b", DES.encrypt("testlip"));
     }
 }
