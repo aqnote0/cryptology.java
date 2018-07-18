@@ -15,7 +15,7 @@
 
 - code template:  
  if you want to add some tools or fix bugs,the follow path is need for you  
- [模版配置类](https://github.com/aqnotecom/codestyle/tree/master/eclipse/templates)
+ [模版配置类](https://github.com/aqnotecom/java.codestyle/tree/master/eclipse/templates)
 
 #### update ####
 
