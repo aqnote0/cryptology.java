@@ -1,4 +1,4 @@
-### aqnote.cryptography ###
+### com.aqnote.shared:cryptography ###
 
 #### develop ####
 -------------------------------------------------------------
