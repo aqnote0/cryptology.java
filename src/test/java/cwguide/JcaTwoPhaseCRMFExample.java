@@ -1,6 +1,6 @@
 package cwguide;
 
-import static com.aqnote.shared.encrypt.cert.bc.constant.BCConstant.JCE_PROVIDER;
+import static com.aqnote.shared.cryptology.cert.bc.constant.BCConstant.JCE_PROVIDER;
 
 import java.math.BigInteger;
 import java.security.KeyPair;
@@ -12,7 +12,7 @@ import org.bouncycastle.asn1.crmf.SubsequentMessage;
 import org.bouncycastle.cert.crmf.jcajce.JcaCertificateRequestMessage;
 import org.bouncycastle.cert.crmf.jcajce.JcaCertificateRequestMessageBuilder;
 
-import com.aqnote.shared.encrypt.AQProviderUtil;
+import com.aqnote.shared.cryptology.AQProviderUtil;
 
 /**
  * Basic example of CRMF which tells a CA to send the certificate back encrypted.

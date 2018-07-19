@@ -9,9 +9,9 @@
 		<version>1.0.2</version>
 	</parent>
 	<groupId>com.aqnote.shared</groupId>
-	<artifactId>cryptography</artifactId>
+	<artifactId>cryptology</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>AQNote's Project For Encrypt</name>
+	<name>AQNote's Project For Cryptology</name>
 	<url>http://www.aqnote.com</url>
 
 	<properties>

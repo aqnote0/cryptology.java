@@ -1,7 +1,7 @@
 package cwguide;
 
-import static com.aqnote.shared.encrypt.cert.bc.constant.BCConstant.ALG_SIG_SHA256_RSA;
-import static com.aqnote.shared.encrypt.cert.bc.constant.BCConstant.JCE_PROVIDER;
+import static com.aqnote.shared.cryptology.cert.bc.constant.BCConstant.ALG_SIG_SHA256_RSA;
+import static com.aqnote.shared.cryptology.cert.bc.constant.BCConstant.JCE_PROVIDER;
 
 import java.math.BigInteger;
 import java.security.KeyPair;

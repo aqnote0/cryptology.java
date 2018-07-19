@@ -1,6 +1,6 @@
 package cwguide;
 
-import static com.aqnote.shared.encrypt.cert.bc.constant.BCConstant.JCE_PROVIDER;
+import static com.aqnote.shared.cryptology.cert.bc.constant.BCConstant.JCE_PROVIDER;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -46,11 +46,11 @@ import org.bouncycastle.pkcs.jcajce.JcePKCSPBEInputDecryptorProviderBuilder;
 import org.bouncycastle.pkcs.jcajce.JcePKCSPBEOutputEncryptorBuilder;
 import org.bouncycastle.util.io.Streams;
 
-import com.aqnote.shared.encrypt.AQProviderUtil;
+import com.aqnote.shared.cryptology.AQProviderUtil;
 
 public class JcePKCS12Example
 {
-    public static final String file = "/home/madding/output/id.p12";
+    public static final String file = "/home/aqnote/output/id.p12";
     public static void main(String[] args)
         throws Exception
     {

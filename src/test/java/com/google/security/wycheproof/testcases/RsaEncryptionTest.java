@@ -84,7 +84,7 @@ public class RsaEncryptionTest extends TestCase {
    * exceptions and timing. Both the PKCS #1 padding and the OAEP padding were broken:
    * http://www-brs.ub.ruhr-uni-bochum.de/netahtml/HSS/Diss/MeyerChristopher/diss.pdf
    *
-   * <p><b>What this test does not (yet) cover:</b>
+   * <p><b>What this test does not (yet) io:</b>
    *
    * <ul>
    *   <li> A previous version of one of the provider leaked the block type. (when was this fixed?)

@@ -1,6 +1,6 @@
 package cwguide;
 
-import static com.aqnote.shared.encrypt.cert.bc.constant.BCConstant.JCE_PROVIDER;
+import static com.aqnote.shared.cryptology.cert.bc.constant.BCConstant.JCE_PROVIDER;
 
 import java.security.KeyStore;
 import java.security.PrivateKey;
@@ -26,7 +26,7 @@ import org.bouncycastle.cms.jcajce.JcaSimpleSignerInfoVerifierBuilder;
 import org.bouncycastle.cms.jcajce.JcaX509CertSelectorConverter;
 import org.bouncycastle.util.Store;
 
-import com.aqnote.shared.encrypt.AQProviderUtil;
+import com.aqnote.shared.cryptology.AQProviderUtil;
 
 /**
  * JCA example of generating a detached signature.

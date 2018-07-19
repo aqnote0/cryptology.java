@@ -1,7 +1,7 @@
 package cwguide;
 
-import static com.aqnote.shared.encrypt.cert.bc.constant.BCConstant.ALG_SIG_SHA256_RSA;
-import static com.aqnote.shared.encrypt.cert.bc.constant.BCConstant.JCE_PROVIDER;
+import static com.aqnote.shared.cryptology.cert.bc.constant.BCConstant.ALG_SIG_SHA256_RSA;
+import static com.aqnote.shared.cryptology.cert.bc.constant.BCConstant.JCE_PROVIDER;
 
 import java.math.BigInteger;
 import java.security.KeyPair;
@@ -14,7 +14,7 @@ import org.bouncycastle.cert.crmf.jcajce.JcaCertificateRequestMessageBuilder;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
 import org.bouncycastle.operator.jcajce.JcaContentVerifierProviderBuilder;
 
-import com.aqnote.shared.encrypt.AQProviderUtil;
+import com.aqnote.shared.cryptology.AQProviderUtil;
 
 /**
  * Basic example of CRMF using a signature for proof-of-possession

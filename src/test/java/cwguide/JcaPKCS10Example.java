@@ -1,7 +1,7 @@
 package cwguide;
 
-import static com.aqnote.shared.encrypt.cert.bc.constant.BCConstant.ALG_SIG_SHA256_RSA;
-import static com.aqnote.shared.encrypt.cert.bc.constant.BCConstant.JCE_PROVIDER;
+import static com.aqnote.shared.cryptology.cert.bc.constant.BCConstant.ALG_SIG_SHA256_RSA;
+import static com.aqnote.shared.cryptology.cert.bc.constant.BCConstant.JCE_PROVIDER;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -20,7 +20,7 @@ import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.bouncycastle.pkcs.PKCS10CertificationRequestBuilder;
 import org.bouncycastle.pkcs.jcajce.JcaPKCS10CertificationRequestBuilder;
 
-import com.aqnote.shared.encrypt.AQProviderUtil;
+import com.aqnote.shared.cryptology.AQProviderUtil;
 
 /**
  * A simple example showing generation and verification of a PKCS#10 request.

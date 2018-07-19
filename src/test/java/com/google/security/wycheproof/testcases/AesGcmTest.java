@@ -131,7 +131,7 @@ public class AesGcmTest extends TestCase {
       if (test.nonceLengthInBits != 96 || test.tagLengthInBits != 128) {
         try {
           // Checks whether the parameter size is supported.
-          // It would be nice if there was a way to check this without trying to encrypt.
+          // It would be nice if there was a way to check this without trying to cryptology.
           Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
           cipher.init(Cipher.ENCRYPT_MODE, test.key, test.parameters);
         } catch (InvalidKeyException | InvalidAlgorithmParameterException ex) {
