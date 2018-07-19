@@ -40,7 +40,7 @@ TODO:
 
 ## 版本信息
 
-### V1.0.1
+### V1.1.0
 - 支持JDK9，避免调用JDK内部API：sun.* com.sum.* jdk.*
 - 更新一套CA证书，见META-INF/aqnote，老的证书移动到META-INF/mad
 - 变更包坐标：com.aqnote.shared:cryptology
