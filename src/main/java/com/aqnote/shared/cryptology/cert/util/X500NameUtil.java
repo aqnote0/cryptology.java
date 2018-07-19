@@ -14,44 +14,114 @@
  */
 package com.aqnote.shared.cryptology.cert.util;
 
+import java.util.List;
+
 import org.bouncycastle.asn1.x500.X500Name;
+import org.bouncycastle.asn1.x500.X500NameBuilder;
+import org.bouncycastle.asn1.x500.style.BCStyle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.aqnote.shared.cryptology.util.lang.MessageUtil;
-
 /**
- * 类X500Name.java的实现描述：TODO 类实现描述
+ * 类X509PrincipalUtil.java的实现描述：x509规则构造类
  * 
- * @author "Peng Li"<aqnote@qq.com> Dec 6, 2013 11:11:30 PM
+ * @author "Peng Li"<aqnote@qq.com> Dec 5, 2013 4:39:19 PM
  */
 public class X500NameUtil {
+
     private static final Logger logger = LoggerFactory.getLogger(X500NameUtil.class);
 
-    private static final String ISSUE_STRING       = "C=CN,  ST=ZheJiang,  L=HangZhou,  O=MADDING,  OU=Inc,  CN=device,  Email=madding.lip@gmail.com";
-    private static final String SUBJECT_Pattern    = "C=CN,  ST=ZheJiang,  L=HangZhou,  O=MADDING,  OU=Inc,  CN={0},  Email={1}";
-    private static final String SUBJECT_PatternExt = "C=CN,  ST=ZheJiang,  L=HangZhou,  O=MADDING,  OU=Inc,  CN={0},  Email={1}, T={2}";
+    public static final String DN_C              = "CN";
+    public static final String DN_ST             = "ZheJiang";
+    public static final String DN_L              = "HangZhou";
+    public static final String DN_O              = "AQNote";
+    public static final String DN_OU             = "Inc";
 
-    public static X500Name issueName          = null;
+    public static final String DN_ROOT_O         = "AQNote Company Ltd.";
+    public static final String DN_ROOT_OU        = "www.aqnote.com";
+    public static final String DN_ROOT_CN        = "AQNote Cert Signing Authority";
+    public static final String DN_ROOT_E         = "aqnote@aqnote.com";
 
-    public static X500Name getIssueName() {
-        if (issueName == null) {
-            issueName = new X500Name(ISSUE_STRING);
+    public static final String DN_CLASS1_ROOT_CN = "AQNote Class 1 Root";
+    public static final String DN_CLASS2_ROOT_CN = "AQNote class 2 Root";
+    public static final String DN_CLASS3_ROOT_CN = "AQNote Class 3 Root";
+    public static final String DN_CLASS3_END_OU  = "developer";
+
+    /** 根证书构造 */
+    public static X500Name createRootCaPrincipal() {
+        X500NameBuilder x500NameBuilder = new X500NameBuilder(BCStyle.INSTANCE);
+        x500NameBuilder.addRDN(BCStyle.E, DN_ROOT_E);
+        x500NameBuilder.addRDN(BCStyle.CN, DN_ROOT_CN);
+        x500NameBuilder.addRDN(BCStyle.OU, DN_ROOT_OU);
+        x500NameBuilder.addRDN(BCStyle.O, DN_ROOT_O);
+        return x500NameBuilder.build();
+    }
+
+    public static X500Name createClass1CaPrincipal() {
+        X500NameBuilder x500NameBuilder = new X500NameBuilder(BCStyle.INSTANCE);
+        x500NameBuilder.addRDN(BCStyle.CN, DN_CLASS1_ROOT_CN);
+        x500NameBuilder.addRDN(BCStyle.OU, DN_OU);
+        x500NameBuilder.addRDN(BCStyle.O, DN_O);
+        return x500NameBuilder.build();
+    }
+
+    public static X500Name createClass1EndPrincipal(String cn, String email) {
+        X500NameBuilder x500NameBuilder = new X500NameBuilder(BCStyle.INSTANCE);
+        x500NameBuilder.addRDN(BCStyle.E, email);
+        x500NameBuilder.addRDN(BCStyle.CN, cn);
+        x500NameBuilder.addRDN(BCStyle.OU, DN_OU);
+        x500NameBuilder.addRDN(BCStyle.O, DN_O);
+        x500NameBuilder.addRDN(BCStyle.L, DN_L);
+        x500NameBuilder.addRDN(BCStyle.ST, DN_ST);
+        x500NameBuilder.addRDN(BCStyle.C, DN_C);
+        return x500NameBuilder.build();
+    }
+
+    public static X500Name createClass3CaPrincipal() {
+        X500NameBuilder x500NameBuilder = new X500NameBuilder(BCStyle.INSTANCE);
+        x500NameBuilder.addRDN(BCStyle.CN, DN_CLASS3_ROOT_CN);
+        x500NameBuilder.addRDN(BCStyle.OU, DN_ROOT_OU);
+        x500NameBuilder.addRDN(BCStyle.O, DN_ROOT_O);
+        return x500NameBuilder.build();
+    }
+
+    public static X500Name createClass3EndPrincipal(String cn, String email, String title) {
+        X500NameBuilder x500NameBuilder = new X500NameBuilder(BCStyle.INSTANCE);
+        x500NameBuilder.addRDN(BCStyle.E, email);
+        x500NameBuilder.addRDN(BCStyle.CN, cn);
+        x500NameBuilder.addRDN(BCStyle.T, title);
+        x500NameBuilder.addRDN(BCStyle.OU, DN_CLASS3_END_OU);
+//        x500NameBuilder.addRDN(BCStyle.O, DN_O);
+//        x500NameBuilder.addRDN(BCStyle.L, DN_L);
+//        x500NameBuilder.addRDN(BCStyle.ST, DN_ST);
+//        x500NameBuilder.addRDN(BCStyle.C, DN_C);
+        return x500NameBuilder.build();
+    }
+
+    public static X500Name createClass3EndPrincipal(String cn, String email) {
+        X500NameBuilder x500NameBuilder = new X500NameBuilder(BCStyle.INSTANCE);
+        x500NameBuilder.addRDN(BCStyle.E, email);
+        x500NameBuilder.addRDN(BCStyle.CN, cn);
+        x500NameBuilder.addRDN(BCStyle.OU, DN_OU);
+        x500NameBuilder.addRDN(BCStyle.O, DN_O);
+        x500NameBuilder.addRDN(BCStyle.L, DN_L);
+        x500NameBuilder.addRDN(BCStyle.ST, DN_ST);
+        x500NameBuilder.addRDN(BCStyle.C, DN_C);
+        return x500NameBuilder.build();
+    }
+
+    public static X500Name createClass3EndPrincipal(List<String> cnList, String email) {
+        X500NameBuilder x500NameBuilder = new X500NameBuilder(BCStyle.INSTANCE);
+        x500NameBuilder.addRDN(BCStyle.E, email);
+        for (String cn : cnList) {
+            x500NameBuilder.addRDN(BCStyle.CN, cn);
         }
-        return issueName;
+        x500NameBuilder.addRDN(BCStyle.OU, DN_OU);
+        x500NameBuilder.addRDN(BCStyle.O, DN_O);
+        x500NameBuilder.addRDN(BCStyle.L, DN_L);
+        x500NameBuilder.addRDN(BCStyle.ST, DN_ST);
+        x500NameBuilder.addRDN(BCStyle.C, DN_C);
+        return x500NameBuilder.build();
     }
 
-    public static X500Name getSubjectName(String cn, String email) {
-        X500Name subjectName = null;
-        String subjectString = MessageUtil.formatMessage(SUBJECT_Pattern, new String[] { cn, email });
-        subjectName = new X500Name(subjectString);
-        return subjectName;
-    }
-
-    public static X500Name getSubjectName(String cn, String email, String title) {
-        X500Name subjectName = null;
-        String subjectString = MessageUtil.formatMessage(SUBJECT_PatternExt, new String[] { cn, email, title});
-        subjectName = new X500Name(subjectString);
-        return subjectName;
-    }
 }

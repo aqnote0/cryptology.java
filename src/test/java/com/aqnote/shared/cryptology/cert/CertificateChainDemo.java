@@ -14,8 +14,8 @@
  */
 package com.aqnote.shared.cryptology.cert;
 
-import static com.aqnote.shared.cryptology.cert.bc.constant.BCConstant.ALG_SIG_SHA256_RSA;
-import static com.aqnote.shared.cryptology.cert.bc.constant.BCConstant.JCE_PROVIDER;
+import static com.aqnote.shared.cryptology.cert.constant.BCConstant.ALG_SIG_SHA256_RSA;
+import static com.aqnote.shared.cryptology.cert.constant.BCConstant.JCE_PROVIDER;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

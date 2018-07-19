@@ -3,7 +3,7 @@
 ## use|使用方法
 
 ### 证书
-证书操作工具BC版实现的都在：com.aqnote.shared.cryptology.cert.bc.main
+证书操作工具BC版实现的都在：com.aqnote.shared.cryptology.cert.main
 - AQRootCaMain: V3版根CA签发器。用来派生其他中间证书和终端证书用
 - AQClass1CaMain: Class1的中级证书签发器。做服务器端证书签发，用AQRootCaMain签发的证书做根证书，用来签发其下路径证书，深度为3
 - AQClass1EndRadiusMain: Class1下的Radius证书签发器。用来放在ACL中，做Radius服务证书校验

@@ -14,7 +14,7 @@
  */
 package com.aqnote.shared.cryptology.digest;
 
-import static com.aqnote.shared.cryptology.cert.bc.constant.BCConstant.JCE_PROVIDER;
+import static com.aqnote.shared.cryptology.cert.constant.BCConstant.JCE_PROVIDER;
 import static org.apache.commons.lang.StringUtils.isBlank;
 
 import java.io.UnsupportedEncodingException;

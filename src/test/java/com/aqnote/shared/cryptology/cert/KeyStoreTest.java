@@ -8,7 +8,7 @@ import java.security.PrivateKey;
 import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 
-import com.aqnote.shared.cryptology.cert.bc.gen.CertGenerator;
+import com.aqnote.shared.cryptology.cert.gen.CertGenerator;
 
 public class KeyStoreTest {
 	

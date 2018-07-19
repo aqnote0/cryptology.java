@@ -14,7 +14,7 @@ import java.security.Security;
 import com.aqnote.shared.cryptology.util.ProviderUtil;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
-import com.aqnote.shared.cryptology.cert.bc.constant.BCConstant;
+import com.aqnote.shared.cryptology.cert.constant.BCConstant;
 
 /**
  * Provider.java desc：TODO

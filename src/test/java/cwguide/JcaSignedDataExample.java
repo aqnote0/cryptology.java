@@ -1,6 +1,6 @@
 package cwguide;
 
-import static com.aqnote.shared.cryptology.cert.bc.constant.BCConstant.JCE_PROVIDER;
+import static com.aqnote.shared.cryptology.cert.constant.BCConstant.JCE_PROVIDER;
 
 import java.security.KeyStore;
 import java.security.PrivateKey;
