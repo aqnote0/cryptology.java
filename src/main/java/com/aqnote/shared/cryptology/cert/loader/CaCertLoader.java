@@ -6,7 +6,7 @@
  * either express or implied. See the License for the specific language governing permissions and limitations under the
  * License.
  */
-package com.aqnote.shared.cryptology.cert.jdk.loader;
+package com.aqnote.shared.cryptology.cert.loader;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,8 +16,8 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
 import com.aqnote.shared.cryptology.cert.CertException;
-import com.aqnote.shared.cryptology.cert.jdk.tool.PrivateKeyTool;
-import com.aqnote.shared.cryptology.cert.jdk.tool.X509CertTool;
+import com.aqnote.shared.cryptology.cert.tool.PrivateKeyTool;
+import com.aqnote.shared.cryptology.cert.tool.X509CertTool;
 import com.aqnote.shared.cryptology.util.lang.ClassLoaderUtil;
 import com.aqnote.shared.cryptology.util.lang.StreamUtil;
 

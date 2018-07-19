@@ -12,9 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.aqnote.shared.cryptology.cert.jdk.util;
-
-import java.io.IOException;
+package com.aqnote.shared.cryptology.cert.util;
 
 import org.bouncycastle.asn1.x500.X500Name;
 import org.slf4j.Logger;

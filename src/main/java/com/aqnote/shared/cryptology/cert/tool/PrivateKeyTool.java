@@ -12,9 +12,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.aqnote.shared.cryptology.cert.jdk.tool;
+package com.aqnote.shared.cryptology.cert.tool;
 
-import java.security.AccessController;
 import java.security.Key;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;

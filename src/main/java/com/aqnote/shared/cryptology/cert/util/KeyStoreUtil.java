@@ -12,7 +12,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.aqnote.shared.cryptology.cert.jdk.util;
+package com.aqnote.shared.cryptology.cert.util;
 
 import java.io.IOException;
 import java.io.InputStream;
