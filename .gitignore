@@ -19,3 +19,7 @@ hs_err_pid*
 
 # mac osx
 .DS_Store
+
+.idea
+
+*.iml
