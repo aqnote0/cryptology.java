@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.aqnote.shared</groupId>
 	<artifactId>cryptology</artifactId>
-	<version>1.1.0</version>
+	<version>1.2.0-SNAPSHOT</version>
 	<name>AQNote's Project For Cryptology</name>
 	<url>http://www.aqnote.com</url>
 
@@ -101,4 +101,15 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<distributionManagement>
+		<repository>
+			<id>aqnote-release</id>
+			<url>http://aqnote.local:8081/repository/aqnote-release/</url>
+		</repository>
+		<snapshotRepository>
+			<id>aqnote-snapshot</id>
+			<url>http://aqnote.local:8081/repository/aqnote-snasphot/</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
