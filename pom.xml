@@ -102,4 +102,15 @@
 		</dependency>
 	</dependencies>
 
+	<distributionManagement>
+		<repository>
+			<id>aqnote-release</id>
+			<url>http://aqnote.local:8081/repository/aqnote-release</url>
+		</repository>
+		<snapshotRepository>
+			<id>aqnote-snapshot</id>
+			<url>http://aqnote.local:8081/repository/aqnote-snapshot</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 </project>
