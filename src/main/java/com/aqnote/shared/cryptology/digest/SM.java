@@ -14,6 +14,7 @@
  */
 package com.aqnote.shared.cryptology.digest;
 
+import static com.aqnote.shared.cryptology.Constants.UTF_8;
 import static com.aqnote.shared.cryptology.cert.constant.BCConstant.JCE_PROVIDER;
 
 import java.io.UnsupportedEncodingException;
@@ -34,10 +35,8 @@ import com.aqnote.shared.cryptology.AQProviderUtil;
  * @author "Peng Li"<aqnote@qq.com> Dec 24, 2015 6:13:41 PM
  */
 public class SM {
-
-    private static final String DEFAULT_CHARSET = "UTF-8";
     private static final String OID_SM3 = "1.2.156.197.1.401";
-    
+
     static {
         AQProviderUtil.addBCProvider();
     }
@@ -45,7 +44,7 @@ public class SM {
     public final static String sm3(String src) {
         if(StringUtils.isBlank(src)) return "";
         try {
-            return sm3(src.getBytes(DEFAULT_CHARSET));
+            return sm3(src.getBytes(UTF_8));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

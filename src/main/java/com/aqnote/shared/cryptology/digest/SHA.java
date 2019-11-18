@@ -14,6 +14,7 @@
  */
 package com.aqnote.shared.cryptology.digest;
 
+import static com.aqnote.shared.cryptology.Constants.UTF_8;
 import static com.aqnote.shared.cryptology.cert.constant.BCConstant.JCE_PROVIDER;
 import static org.apache.commons.lang.StringUtils.isBlank;
 
@@ -44,9 +45,6 @@ import com.aqnote.shared.cryptology.util.lang.ByteUtil;
  * @author "Peng Li"<aqnote@qq.com> May 8, 2012 2:01:34 PM
  */
 public class SHA {
-
-	private static final String DEFAULT_CHARSET = "UTF-8";
-
 	private static final String OID_SHA1 = OIWObjectIdentifiers.idSHA1.toString();
 	private static final String OID_SHA2_224 = NISTObjectIdentifiers.id_sha224.toString();
 	private static final String OID_SHA2_256 = NISTObjectIdentifiers.id_sha256.toString();
@@ -66,7 +64,7 @@ public class SHA {
 		if (isBlank(src))
 			return "";
 		try {
-			return sha1(src.getBytes(DEFAULT_CHARSET));
+			return sha1(src.getBytes(UTF_8));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -106,7 +104,7 @@ public class SHA {
 		if (isBlank(src))
 			return "";
 		try {
-			return sha224(src.getBytes(DEFAULT_CHARSET));
+			return sha224(src.getBytes(UTF_8));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -145,7 +143,7 @@ public class SHA {
 		if (isBlank(src))
 			return "";
 		try {
-			return sha256(src.getBytes(DEFAULT_CHARSET));
+			return sha256(src.getBytes(UTF_8));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -184,7 +182,7 @@ public class SHA {
 		if (isBlank(src))
 			return "";
 		try {
-			return sha384(src.getBytes(DEFAULT_CHARSET));
+			return sha384(src.getBytes(UTF_8));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -222,7 +220,7 @@ public class SHA {
 		if (isBlank(src))
 			return "";
 		try {
-			return sha512(src.getBytes(DEFAULT_CHARSET));
+			return sha512(src.getBytes(UTF_8));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -260,7 +258,7 @@ public class SHA {
 		if (src == null)
 			return "";
 		try {
-			return sha512_224(src.getBytes(DEFAULT_CHARSET));
+			return sha512_224(src.getBytes(UTF_8));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -298,7 +296,7 @@ public class SHA {
 		if (isBlank(src))
 			return "";
 		try {
-			return sha512_256(src.getBytes(DEFAULT_CHARSET));
+			return sha512_256(src.getBytes(UTF_8));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -338,7 +336,7 @@ public class SHA {
 		if (isBlank(src))
 			return "";
 		try {
-			return sha3_224(src.getBytes(DEFAULT_CHARSET));
+			return sha3_224(src.getBytes(UTF_8));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -376,7 +374,7 @@ public class SHA {
 		if (isBlank(src))
 			return "";
 		try {
-			return sha3_256(src.getBytes(DEFAULT_CHARSET));
+			return sha3_256(src.getBytes(UTF_8));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -411,7 +409,7 @@ public class SHA {
 		if (isBlank(src))
 			return "";
 		try {
-			return sha3_384(src.getBytes(DEFAULT_CHARSET));
+			return sha3_384(src.getBytes(UTF_8));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
@@ -448,7 +446,7 @@ public class SHA {
 		if (isBlank(src))
 			return "";
 		try {
-			return sha3_512(src.getBytes(DEFAULT_CHARSET));
+			return sha3_512(src.getBytes(UTF_8));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}

@@ -52,20 +52,19 @@ import com.aqnote.shared.cryptology.util.log.Log.R;
 
 /**
  * 类PKCSReader.java的实现描述：pkcs读取工具类
- * 
+ *
  * @author "Peng Li"<aqnote@qq.com> Dec 6, 2013 7:24:53 PM
  */
 public class PKCSReader implements BCConstant {
 
     public static final Logger                       logger        = LoggerFactory.getLogger(PKCSReader.class);
-
     private static final JcaX509CertificateConverter certConverter = new JcaX509CertificateConverter().setProvider(JCE_PROVIDER);
     private static final JcaX509CRLConverter         crlConverter  = new JcaX509CRLConverter().setProvider(JCE_PROVIDER);
     private static final JcaPEMKeyConverter          keyConverter  = new JcaPEMKeyConverter().setProvider(JCE_PROVIDER);
 
     public static PKCS12PfxPdu readPKCS12(InputStream istream, final char[] pwd) {
         if(istream == null || pwd == null) return null;
-        
+
         try {
             PKCS12PfxPdu pfx = new PKCS12PfxPdu(Streams.readAll(istream));
 
@@ -79,7 +78,7 @@ public class PKCSReader implements BCConstant {
         }
         return null;
     }
-    
+
     public static PKCS10CertificationRequest readCSR(InputStream istream) {
         if(istream == null) return null;
 
@@ -96,7 +95,7 @@ public class PKCSReader implements BCConstant {
 
     public static X509Certificate readCert(InputStream istream) {
         if(istream == null) return null;
-        
+
         try {
             Object object = readFile(istream);
             if (object instanceof X509CertificateHolder) {
@@ -110,7 +109,7 @@ public class PKCSReader implements BCConstant {
 
     public static X509CRL readCRL(InputStream istream) {
         if(istream == null) return null;
-        
+
         try {
             Object object = readFile(istream);
             if (object instanceof X509CRLHolder) {
@@ -124,7 +123,7 @@ public class PKCSReader implements BCConstant {
 
     public static KeyPair readKeyPair(InputStream istream, final char[] pwd) {
         if(istream == null || pwd == null) return null;
-        
+
         try {
             Object object = readFile(istream);
             if (object instanceof PEMEncryptedKeyPair) {
@@ -141,7 +140,7 @@ public class PKCSReader implements BCConstant {
 
     public static PublicKey readPublicKey(InputStream istream, final char[] pwd) {
         if(istream == null || pwd == null) return null;
-        
+
         try {
             Object object = readFile(istream);
             if (object instanceof SubjectPublicKeyInfo) {
@@ -155,7 +154,7 @@ public class PKCSReader implements BCConstant {
 
     public static PrivateKey readPrivateKey(InputStream istream, final char[] pwd) {
         if(istream == null || pwd == null) return null;
-        
+
         try {
             Object object = readFile(istream);
             if (object instanceof PKCS8EncryptedPrivateKeyInfo) {

@@ -16,6 +16,7 @@ package com.aqnote.shared.cryptology.digest;
 
 import static com.aqnote.shared.cryptology.cert.constant.BCConstant.JCE_PROVIDER;
 import static org.apache.commons.lang.StringUtils.isBlank;
+import static com.aqnote.shared.cryptology.Constants.UTF_8;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -36,9 +37,6 @@ import com.aqnote.shared.cryptology.util.lang.ByteUtil;
  * @author "Peng Li"<aqnote@qq.com> May 8, 2012 1:59:09 PM
  */
 public class MD {
-
-    private static final String DEFAULT_CHARSET = "UTF-8";
-
     private static final String OID_MD2         = PKCSObjectIdentifiers.md2.toString();
     private static final String OID_MD4         = PKCSObjectIdentifiers.md4.toString();
     private static final String OID_MD5         = PKCSObjectIdentifiers.md5.toString();
@@ -50,7 +48,7 @@ public class MD {
     public final static String md2(String src) {
         if (isBlank(src)) return "";
         try {
-            return md2(src.getBytes(DEFAULT_CHARSET));
+            return md2(src.getBytes(UTF_8));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -82,7 +80,7 @@ public class MD {
     public final static String md4(String src) {
         if (isBlank(src)) return "";
         try {
-            return md4(src.getBytes(DEFAULT_CHARSET));
+            return md4(src.getBytes(UTF_8));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -114,7 +112,7 @@ public class MD {
     public final static String md5(String src) {
         if (isBlank(src)) return "";
         try {
-            return md5(src.getBytes(DEFAULT_CHARSET));
+            return md5(src.getBytes(UTF_8));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

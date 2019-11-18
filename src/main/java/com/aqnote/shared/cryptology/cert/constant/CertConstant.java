@@ -16,14 +16,14 @@ package com.aqnote.shared.cryptology.cert.constant;
 
 /**
  * 类CertConstant.java的实现描述：TODO 类实现描述
- * 
+ *
  * @author "Peng Li"<aqnote@qq.com> Dec 7, 2013 12:11:16 AM
  */
 public class CertConstant {
 
     public static final String MAD_CRL_URL = "http://www.aqnote.com/cert/mad.crl";
-    
+
     public static final String MAD_OCSP_URL = "http://www.aqnote.com/cert/ocsp";
-    
+
     public static final String MAD_CA_URL = "http://www.aqnote.com/cert/mad.cer";
 }
