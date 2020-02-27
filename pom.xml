@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>com.aqnote</groupId>
 		<artifactId>parent.all</artifactId>
-		<version>1.0.3</version>
+		<version>1.0.5</version>
 	</parent>
 	<groupId>com.aqnote.shared</groupId>
 	<artifactId>cryptology</artifactId>
@@ -15,6 +15,7 @@
 	<url>http://www.aqnote.com</url>
 
 	<properties>
+		<maven.test.skip>true</maven.test.skip>
 		<slf4j_version>1.6.6</slf4j_version>
 		<apache_commons_codec>1.10</apache_commons_codec>
 		<apache_commons_lang>2.6</apache_commons_lang>
@@ -101,5 +102,4 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 </project>
